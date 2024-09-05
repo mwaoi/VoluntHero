@@ -15,6 +15,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
+    
   }
 
   body {
@@ -22,6 +23,9 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    display: flex; 
+    flex-direction: column;
+    
   }
 
   header {
@@ -157,15 +161,39 @@
       /* Adjust padding for mobile */
       max-width: 100%;
       /* Make main element full-width on mobile */
+      flex: 1;
     }
+  html, body {
+    height: 100%; /* Set the height of the HTML and body elements to 100% */
+  }
+  body {
+    display: flex; /* Use flexbox to layout the body */
+    flex-direction: column; /* Layout the body elements in a column */
+  }
+
+
+  main {
+    flex: 1; /* Make the main element take up the majority of the space */
+    padding: 10px 20px;
+    max-width: 100%;
+    
+  }
 
     .hero {
-      padding: 30px 20px;
+      padding: 20px 20px; /* Reduce the padding of the hero element */
+
       /* Adjust padding for mobile */
       border-radius: 5px;
       /* Reduce border radius for mobile */
       box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
       /* Reduce box shadow for mobile */
+      min-height: 80vh;
+  display: flex; /* Use flexbox to layout the contents */
+  flex-direction: column; /* Layout the contents in a column */
+  justify-content: center; /* Center the contents horizontally */
+  align-items: center; /* Center the contents vertically */
+  text-align: center; /* Center the text */
+      
     }
 
     .hero h1 {
@@ -247,16 +275,15 @@
   @media only screen and (max-width: 768px) {
     footer {
       flex-direction: row;
-      /* Keep the footer columns in a row on mobile */
       flex-wrap: wrap;
-      /* Allow the columns to wrap to the next line if necessary */
+      padding: 10px 20px; /* Reduce the padding of the footer */
+      max-height: 100px; /* Set a maximum height for the footer */
     }
 
     .footer-col {
       flex: 1;
       /* Make each column equally wide */
-      margin: 20px;
-      /* Add margin between footer columns on mobile */
+      margin: 10px;
     }
 
     .links {
@@ -265,7 +292,7 @@
     }
 
     .links a {
-      margin: 10px;
+      margin: 5px;
       /* Add margin between social media links on mobile */
     }
   }
@@ -281,7 +308,7 @@
   <main>
     <section class="hero">
       <h1>Welcome to VoluntHero</h1>
-      <p>VoluntHero enables our youth to impact our community through safe, inclusive, and meaningful volunteering opportunities. </p>
+      <p>VoluntHero enables our youth to make a meaningful impact on our community. </p>
       <a href="forum.html"><button class="learn-more">Get Started</button></a>
     </section>
   </main>
@@ -290,15 +317,15 @@
     <div class="footer-col">
       <h4>Partners</h4>
       <ul>
-        <li><a href="https://www.stocktonusd.net/SECA">Stockton Early College Academy</a></li>
-        <li><a href="https://westonranch.mantecausd.net/">Weston Ranch High School</a></li>
-        <li><a href="https://www.stocktonusd.net/Chavez">Cesar Chavez High School</a></li>
+        <li><a href="https://www.stocktonusd.net/SECA">SECA</a></li>
+        <li><a href="https://westonranch.mantecausd.net/">Weston Ranch</a></li>
+        <li><a href="https://www.stocktonusd.net/Chavez">Cesar Chavez</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Creators</h4>
       <ul>
-        <li><a href="https://www.linkedin.com/in/itsmichaellin/">Michael Lin</a></li>
+        <li><a href="#">Michael Lin</a></li>
         <li><a href="#">Sehaj Gill</a></li>
         <li><a href="#">Samarth Gill</a></li>
       </ul>
@@ -307,8 +334,8 @@
       <h4>Socials</h4>
       <ul>
 
-        <li><a href="https://www.stocktonusd.net/SECA"> Our School Webpage</a></li>
-        <li><a href="#">Email Us Below!</a></li>
+        <li><a href="https://www.stocktonusd.net/SECA">SECA Site</a></li>
+        <li><a href="mailto:voluntherocontact@gmail.com">Contact</a></li>
         <li><a href="https://linktr.ee/sehajg">Link Tree</a></li>
       </ul>
     </div>
