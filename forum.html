@@ -52,6 +52,33 @@
   .logo {
     font-size: 2rem;
     color: #034692;
+    align-items: center;
+  }
+
+  @media only screen and (max-width: 768px) {
+    header {
+      flex-direction: column;
+      /* Stack header elements vertically on mobile */
+      padding: 10px;
+      /* Adjust padding for mobile */
+    }
+
+    .logo {
+      margin-right: 0;
+      /* Remove margin right for logo on mobile */
+    }
+
+    header nav ul {
+      flex-direction: column;
+      /* Stack navigation items vertically on mobile */
+    }
+
+    header nav li {
+      margin-right: 0;
+      /* Remove margin right for navigation items on mobile */
+      margin-bottom: 10px;
+      /* Add margin bottom for navigation items on mobile */
+    }
   }
 
 
@@ -295,14 +322,6 @@
       /* Set a maximum height for the footer */
     }
 
-    .logo {
-      text-align: center;
-      /* Center the logo text */
-      margin: 0 auto;
-      /* Center the logo element */
-    }
-
-
     .footer-col {
       flex: 1;
       /* Make each column equally wide */
@@ -387,14 +406,6 @@
   }
 
   /* Add this media query to your CSS code */
-
-  @media only screen and (max-width: 768px) {
-    .card {
-      margin: 5px auto;
-      padding: 20px 15px;
-      /* Adjust the padding to 15px on left and right sides */
-    }
-  }
 </style>
 
 <body>
@@ -1115,7 +1126,7 @@
       <div class="footer-col">
         <h4>Creators</h4>
         <ul>
-          <li><a href="#">Michael Lin</a></li>
+          <li><a href="https://www.linkedin.com/in/itsmichaellin/">Michael Lin</a></li>
           <li><a href="#">Sehaj Gill</a></li>
           <li><a href="#">Samarth Gill</a></li>
         </ul>
