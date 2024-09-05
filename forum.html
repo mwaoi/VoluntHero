@@ -43,7 +43,6 @@
   header {
     background-color: #ffffff;
     display: flex;
-    padding: 40px;
     justify-content: space-between;
     align-items: center;
     padding: 20px 100px;
@@ -53,7 +52,6 @@
   .logo {
     font-size: 2rem;
     color: #034692;
-    margin-right: 20px;
   }
 
 
@@ -290,16 +288,20 @@
   @media only screen and (max-width: 768px) {
     footer {
       flex-direction: row;
-      /* Keep the footer columns in a row on mobile */
       flex-wrap: wrap;
-      /* Allow the columns to wrap to the next line if necessary */
+      padding: 10px 20px; /* Reduce the padding of the footer */
+      max-height: 100px; /* Set a maximum height for the footer */
     }
+    .logo {
+      text-align: center; /* Center the logo text */
+      margin: 0 auto; /* Center the logo element */
+    }
+
 
     .footer-col {
       flex: 1;
       /* Make each column equally wide */
-      margin: 20px;
-      /* Add margin between footer columns on mobile */
+      margin: 10px;
     }
 
     .links {
@@ -308,7 +310,7 @@
     }
 
     .links a {
-      margin: 10px;
+      margin: 5px;
       /* Add margin between social media links on mobile */
     }
   }
@@ -366,15 +368,20 @@
 
   @media only screen and (max-width: 768px) {
     .card {
-      width: 100%;
-      /* Make cards full-width on mobile */
-      margin: 10px;
-      /* Adjust margin for mobile */
+      margin: 5px auto;
+      padding: 20px 10px; /* Reduce padding to 10px on left and right sides */
+      width: 45%; /* Make the cards skinnier, adjust the width to 30% */
     }
-
     .card-container {
-      flex-direction: column;
-      /* Stack cards vertically on mobile */
+      padding: 10px; /* Add padding to the card container */
+    }
+  }
+  /* Add this media query to your CSS code */
+
+  @media only screen and (max-width: 768px) {
+    .card {
+      margin: 5px auto;
+      padding: 20px 15px; /* Adjust the padding to 15px on left and right sides */
     }
   }
 </style>
@@ -1084,19 +1091,14 @@
       </div>
     </div>
 
-
-
-
-
-
-
     <footer>
+
       <div class="footer-col">
         <h4>Partners</h4>
         <ul>
-          <li><a href="https://www.stocktonusd.net/SECA">Stockton Early College Academy</a></li>
-          <li><a href="https://westonranch.mantecausd.net/">Weston Ranch High School</a></li>
-          <li><a href="https://www.stocktonusd.net/Chavez">Cesar Chavez High School</a></li>
+          <li><a href="https://www.stocktonusd.net/SECA">SECA</a></li>
+          <li><a href="https://westonranch.mantecausd.net/">Weston Ranch</a></li>
+          <li><a href="https://www.stocktonusd.net/Chavez">Cesar Chavez</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1111,13 +1113,12 @@
         <h4>Socials</h4>
         <ul>
 
-          <li><a href="https://www.stocktonusd.net/SECA">Our School Webpage</a></li>
-          <li><a href="#">Email Us Below!</a></li>
+          <li><a href="https://www.stocktonusd.net/SECA">SECA Site</a></li>
+          <li><a href="mailto:voluntherocontact@gmail.com">Contact</a></li>
           <li><a href="https://linktr.ee/sehajg">Link Tree</a></li>
         </ul>
       </div>
-  </div>
-  </footer>
+    </footer>
 </body>
 
 </html>
