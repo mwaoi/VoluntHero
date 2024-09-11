@@ -10,6 +10,27 @@
     type="image/x-icon">
   <link rel="stylesheet" href="style.css">
 </head>
+  <script>
+    function searchFunction() {
+      var input, filter, cards, cardContainer, txtValue, i;
+      input = document.getElementById('searchBar');
+      filter = input.value.toUpperCase();
+      cardContainer = document.getElementsByClassName("card-container")[0];
+      cards = cardContainer.getElementsByClassName("card");
+
+      for (i = 0; i < cards.length; i++) {
+        txtValue = ''; 
+        Array.prototype.forEach.call(cards[i].querySelectorAll('*'), function(element) {
+          txtValue += element.textContent || element.innerText;
+        });
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          cards[i].style.display = "";
+        } else {
+          cards[i].style.display = "none";
+        }
+      }
+    }
+  </script>
 
 
 
@@ -53,6 +74,36 @@
     font-size: 2rem;
     color: #034692;
     align-items: center;
+  }
+
+  #searchBar {
+    width: 30px;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #f7f7f7;
+    background-image: url('search-icon.png'); 
+    background-size: 20px 20px;
+    background-position: 5px 5px;
+    background-repeat: no-repeat;
+    transition: width 0.5s; 
+    cursor: pointer; 
+  }
+
+  #searchBar:hover {
+    width: 200px; 
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+  }
+
+  #searchBar:focus {
+    outline: none; 
+    border: 1px solid #aaaaaa;
+  }
+
+  #searchBar::placeholder {
+    color: #cccccc; 
   }
 
   @media only screen and (max-width: 768px) {
@@ -318,14 +369,14 @@
       flex-wrap: wrap;
       padding: 10px 20px;
       /* Reduce the padding of the footer */
-      max-height: 220px;
+      max-height: 250px;
       /* Set a maximum height for the footer */
     }
 
     .footer-col {
       flex: 1;
       /* Make each column equally wide */
-      margin: 10px;
+      margin: 5px;
     }
 
     .links {
@@ -394,24 +445,26 @@
     .card {
       margin: 5px auto;
       padding: 20px 10px;
-      /* Reduce padding to 10px on left and right sides */
+
       width: 60%;
-      /* Make the cards skinnier, adjust the width to 30% */
+
     }
 
     .card-container {
       padding: 10px;
-      /* Add padding to the card container */
+
     }
   }
 
-  /* Add this media query to your CSS code */
 </style>
 
 <body>
   <header>
     <div class="logo">
       <a href="index.html">VoluntHero</a>
+    </div>
+    <div class="search">
+      <input type="text" id="searchBar" onkeyup="searchFunction()" placeholder="Search">
     </div>
   </header>
   <div class="card-container">
@@ -503,7 +556,7 @@
           <li><strong>Name:</strong> Tracy</li>
           <li><strong>Position:</strong> IT Assistant
           </li>
-          <li><strong>Location:</strong> 355 HOLLYWOOD AVETRACY, CA 95376 United States
+          <li><strong>Location:</strong> 355 Hollywood Ave Tracy, CA 95376 United States
 
           </li>
           <li><strong>Website:</strong> <a href="https://tracyearthproject.com/
@@ -612,7 +665,7 @@
         <ul>
           <li><strong>Name:</strong> Reach Out & Read Program</li>
           <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 605 N. El Dorado StStockton, CA 95202 United States
+          <li><strong>Location:</strong> 605 N. El Dorado St Stockton, CA 95202 United States
           </li>
           <li><strong>Website:</strong> <a href="https://www.ssjcpl.org/locations/stockton/chavez.html">Click Here</a>
           </li>
@@ -775,7 +828,7 @@
           <li><strong>Name:</strong> Blossom Ridge Hospice</li>
           <li><strong>Position:</strong> Volunteer</li>
           <li><strong>Location:</strong> 520 9th Street Suite 240 Sacramento, CA 95814 United States</li>
-          <li><strong>Website:</strong> <a href="https://blossomridge.com">Click Here</a></li>
+          <li><strong>Website:</strong> <a href="http://www.blossomridge.net ">Click Here</a></li>
         </ul>
       </div>
     </div>
@@ -786,7 +839,7 @@
           <li><strong>Name:</strong> Blossom Ridge Hospice</li>
           <li><strong>Position:</strong> Patient Support</li>
           <li><strong>Location:</strong> 520 9th Street Suite 240 Sacramento, CA 95814 United States</li>
-          <li><strong>Website:</strong> <a href="https://blossomridge.com">Click Here</a></li>
+          <li><strong>Website:</strong> <a href="http://www.blossomridge.net ">Click Here</a></li>
         </ul>
       </div>
     </div>
@@ -797,7 +850,7 @@
           <li><strong>Name:</strong> Blossom Ridge Hospice</li>
           <li><strong>Position:</strong> Office Support</li>
           <li><strong>Location:</strong> 520 9th Street Suite 240 Sacramento, CA 95814 United States</li>
-          <li><strong>Website:</strong> <a href="https://blossomridge.com">Click Here</a></li>
+          <li><strong>Website:</strong> <a href="http://www.blossomridge.net ">Click Here</a></li>
         </ul>
       </div>
     </div>
@@ -808,7 +861,7 @@
           <li><strong>Name:</strong> Blossom Ridge Hospice</li>
           <li><strong>Position:</strong> Office Volunteer</li>
           <li><strong>Location:</strong> 520 9th Street Suite 240 Sacramento, CA 95814 United States</li>
-          <li><strong>Website:</strong> <a href="https://blossomridge.com ">Click Here</a></li>
+          <li><strong>Website:</strong> <a href="http://www.blossomridge.net ">Click Here</a></li>
         </ul>
       </div>
     </div>
@@ -1094,7 +1147,7 @@
           <li><strong>Name:</strong> Assistance League Of Stockton</li>
           <li><strong>Position:</strong> Volunteer</li>
           <li><strong>Location:</strong> 1323 E Harding Way Stockton, CA 95205</li>
-          <li><strong>Website:</strong> <a href="https://www.assistanceleague.org/stockton/">Click Here</a></li>
+          <li><strong>Website:</strong> <a href="https://www.stockton.assistanceleague.org">Click Here</a></li>
         </ul>
       </div>
     </div>
