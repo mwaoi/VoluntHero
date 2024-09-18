@@ -10,28 +10,28 @@
     type="image/x-icon">
   <link rel="stylesheet" href="style.css">
 </head>
-  <script>
-    function searchFunction() {
-      var input, filter, cards, cardContainer, txtValue, i;
-      input = document.getElementById('searchBar');
-      filter = input.value.toUpperCase();
-      cardContainer = document.getElementsByClassName("card-container")[0];
-      cards = cardContainer.getElementsByClassName("card");
+<script>
+  function searchFunction() {
+    var input, filter, cards, cardContainer, txtValue, i;
+    input = document.getElementById('searchBar');
+    filter = input.value.toUpperCase();
+    cardContainer = document.getElementsByClassName("card-container")[0];
+    cards = cardContainer.getElementsByClassName("card");
 
-      for (i = 0; i < cards.length; i++) {
-        txtValue = ''; 
-        Array.prototype.forEach.call(cards[i].querySelectorAll('*'), function(element) {
-          txtValue += element.textContent || element.innerText;
-        });
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          cards[i].style.display = "";
-        } else {
-          cards[i].style.display = "none";
-        }
+    for (i = 0; i < cards.length; i++) {
+      txtValue = '';
+      Array.prototype.forEach.call(cards[i].querySelectorAll('*'), function (element) {
+        txtValue += element.textContent || element.innerText;
+      });
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        cards[i].style.display = "";
+      } else {
+        cards[i].style.display = "none";
       }
     }
-    
-  </script>
+  }
+
+</script>
 
 
 
@@ -78,33 +78,33 @@
   }
 
   #searchBar {
-    width: 30px;
-    padding: 10px;
+    width: 51px;
+    padding: 12px;
     border: none;
     border-radius: 20px;
     background-color: #f7f7f7;
-    background-image: url('search-icon.png'); 
+    background-image: url('search-icon.png');
     background-size: 20px 20px;
     background-position: 5px 5px;
     background-repeat: no-repeat;
-    transition: width 0.5s; 
-    cursor: pointer; 
+    transition: width 0.5s;
+    cursor: pointer;
   }
 
   #searchBar:hover {
-    width: 200px; 
-    padding: 10px 20px;
+    width: 220px;
+    padding: 12px 24px;
     background-color: #ffffff;
-    border: 1px solid #cccccc;
+    border: 3px solid #cccccc;
   }
 
   #searchBar:focus {
-    outline: none; 
+    outline: none;
     border: 1px solid #aaaaaa;
   }
 
   #searchBar::placeholder {
-    color: #cccccc; 
+    color: #cccccc;
   }
 
   @media only screen and (max-width: 768px) {
@@ -466,7 +466,6 @@
 
     }
   }
-
 </style>
 
 <body>
@@ -475,8 +474,9 @@
       <a href="index.html">VoluntHero</a>
     </div>
     <div class="search" style="display: flex; align-items: center;">
-        <img src="https://cdn-icons-png.flaticon.com/512/54/54481.png" alt="Search Icon" style="width: 20px; height: 20px; margin-right: 10px;" />
-        <input type="text" id="searchBar" onkeyup="searchFunction()" placeholder="Search" style="flex: 1; padding: 5px;">
+      <img src="https://cdn-icons-png.flaticon.com/512/54/54481.png" alt="Search Icon"
+        style="width: 20px; height: 20px; margin-right: 10px;" />
+      <input type="text" id="searchBar" onkeyup="searchFunction()" placeholder="Search" style="flex: 1; padding: 5px;">
     </div>
   </header>
   <div class="card-container">
@@ -1181,16 +1181,18 @@
         <h4>Partners</h4>
         <ul>
           <li><a href="https://www.stocktonusd.net/SECA">SECA</a></li>
-          <li><a href="https://westonranch.mantecausd.net/">Weston Ranch</a></li>
-          <li><a href="https://www.stocktonusd.net/Chavez">Cesar Chavez</a></li>
+          <li><a href="https://www.keyclub.org//">Key Club</a></li>
+          <li><a href="https://www.sjcoe.org/">SJCOE</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Creators</h4>
         <ul>
           <li><a href="https://www.linkedin.com/in/itsmichaellin/">Michael Lin</a></li>
-          <li><a href="#">Sehaj Gill</a></li>
-          <li><a href="#">Samarth Gill</a></li>
+          <li><a href="https://www.linkedin.com/in/sehaj-gill-b88770329/">Sehaj Gill</a></li>
+          <li><a
+              href="https://www.linkedin.com/in/samarth-gill-33a9a82b3/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app">Samarth
+              Gill</a></li>
         </ul>
       </div>
       <div class="footer-col">
