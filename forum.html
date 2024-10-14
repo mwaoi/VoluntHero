@@ -10,28 +10,53 @@
     type="image/x-icon">
   <link rel="stylesheet" href="style.css">
 </head>
-<script>
-  function searchFunction() {
-    var input, filter, cards, cardContainer, txtValue, i;
-    input = document.getElementById('searchBar');
-    filter = input.value.toUpperCase();
-    cardContainer = document.getElementsByClassName("card-container")[0];
-    cards = cardContainer.getElementsByClassName("card");
+  <script>
+    function searchFunction() {
+      var input, filter, cards, cardContainer, txtValue, i;
+      input = document.getElementById('searchBar');
+      filter = input.value.toUpperCase();
+      cardContainer = document.getElementsByClassName("card-container")[0];
+      cards = cardContainer.getElementsByClassName("card");
 
-    for (i = 0; i < cards.length; i++) {
-      txtValue = '';
-      Array.prototype.forEach.call(cards[i].querySelectorAll('*'), function (element) {
-        txtValue += element.textContent || element.innerText;
-      });
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        cards[i].style.display = "";
-      } else {
-        cards[i].style.display = "none";
+      for (i = 0; i < cards.length; i++) {
+        txtValue = '';
+        Array.prototype.forEach.call(cards[i].querySelectorAll('*'), function (element) {
+          txtValue += element.textContent || element.innerText;
+        });
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          cards[i].style.display = "";
+        } else {
+          cards[i].style.display = "none";
+        }
       }
     }
-  }
 
-</script>
+    function filterByCity() {
+      var select, filter, cards, cardContainer, txtValue, i;
+      select = document.querySelector('select');
+      filter = select.value.toUpperCase();
+      cardContainer = document.getElementsByClassName("card-container")[0];
+      cards = cardContainer.getElementsByClassName("card");
+
+      for (i = 0; i < cards.length; i++) {
+        var locationField = cards[i].querySelector('li:nth-child(3)'); 
+        if (locationField) {
+          txtValue = locationField.textContent.toUpperCase();
+          if (txtValue.includes(filter) || filter === "SELECT A CITY") {
+            cards[i].style.display = "";
+          } else {
+            cards[i].style.display = "none";
+          }
+        }
+      }
+    }
+
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('select').addEventListener('change', filterByCity);
+    });
+  </script>
+
 
 
 
@@ -76,14 +101,29 @@
     color: #034692;
     align-items: center;
   }
+  select {
+    width: 200px;
+    height: 30px;
+    padding: 5px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    font-family: Arial, sans-serif; 
+    background-color: #f9f9f9;
+    color: #333;
+  }
+
+  select:focus {
+    border-color: #aaa; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  }
 
   #searchBar {
-    width: 51px;
+    width: 110px;
     padding: 12px;
     border: none;
     border-radius: 20px;
     background-color: #f7f7f7;
-    background-image: url('search-icon.png');
     background-size: 20px 20px;
     background-position: 5px 5px;
     background-repeat: no-repeat;
@@ -99,8 +139,9 @@
   }
 
   #searchBar:focus {
-    outline: none;
-    border: 1px solid #aaaaaa;
+    width: 220px;
+    padding: 12px 24px;
+    background-color: #ffffff;
   }
 
   #searchBar::placeholder {
@@ -114,6 +155,8 @@
       background-color: #ffffff;
       border: 1px solid #cccccc;
       transition: none;
+      background-image: none;
+
     }
   }
 
@@ -477,6 +520,20 @@
       <img src="https://cdn-icons-png.flaticon.com/512/54/54481.png" alt="Search Icon"
         style="width: 20px; height: 20px; margin-right: 10px;" />
       <input type="text" id="searchBar" onkeyup="searchFunction()" placeholder="Search" style="flex: 1; padding: 5px;">
+    </div>
+    <div class="dropdown">
+      <select>
+        <option value="" label="Click to select a city"">Pick A City</option>
+        <option value ="Sacramento" label="Sacramento">Sacramento</option>
+        <option value="Modesto" label="Modesto">Modesto</option>
+        <option value="Stockton" label="Stockton">Stockton</option>
+        <option value="Tracy" label="Tracy">Tracy</option>
+        <option value="Manteca" label="Manteca">Manteca</option>
+        <option value="Lodi" label="Lodi">Lodi</option>
+        <option value="Lathrop" label="Lathrop">Lathrop</option>
+        <option value="Ripon" label="Ripon">Ripon</option>
+        <option value="Escalon" label="Escalon">Escalon</option>
+      </select>
     </div>
   </header>
   <div class="card-container">
@@ -936,12 +993,12 @@
       </div>
     </div>
     <div class="card">
-      <div class="card-header">Sonder Hospice Car</div>
+      <div class="card-header">Sonder Hospice Care</div>
       <div class="card-body">
         <ul>
           <li><strong>Name:</strong> Sonder Hospice Volunteer</li>
           <li><strong>Position:</strong> Helping Hand</li>
-          <li><strong>Location:</strong> 248 West Fremont Street Sacramento Stockton, CA 95203
+          <li><strong>Location:</strong> 248 West Fremont Street Sacramento, CA 95203
           </li>
           <li><strong>Website:</strong> <a href="https://sonderhealthcare.com/">Click Here</a></li>
         </ul>
@@ -1174,17 +1231,324 @@
         </ul>
       </div>
     </div>
-
-    <footer>
-
-      <div class="footer-col">
-        <h4>Supporters</h4>
+    <div class="card">
+      <div class="card-header">Chest of Hope</div>
+      <div class="card-body">
         <ul>
-          <li><a href="https://www.stocktonusd.net/SECA">SECA</a></li>
-          <li><a href="https://www.keyclub.org//">Key Club</a></li>
-          <li><a href="https://www.sjcoe.org/">SJCOE</a></li>
+          <li><strong>Name:</strong> Chest of Hope</li>
+          <li><strong>Position:</strong> Volunteer</li>
+          <li><strong>Location:</strong> 68 E 11th St #106 Tracy, CA 95376 United States</li>
+          <li><strong>Website:</strong> <a href="https://chestofhope.org/">Click Here</a></li>
         </ul>
       </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Grand Theatre Center for the Arts</div>
+      <div class="card-body">
+        <ul>
+          <li><strong>Name:</strong> Grand Theatre Center for the Arts</li>
+          <li><strong>Position:</strong> Volunteer</li>
+          <li><strong>Location:</strong> 715 Central Ave. Tracy, CA 95376 United States
+    </li>
+          <li><strong>Website:</strong> <a href="https://atthegrand.org/">Click Here</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Tracy Interfaith Ministries</div>
+    <div class="card-body">
+      <ul>
+        <li><strong>Name:</strong> Tracy Interfaith Ministries</li>
+        <li><strong>Position:</strong> Volunteer</li>
+        <li><strong>Location:</strong> 715 Central Ave. Tracy, CA 95376 United States
+    </li>
+        <li><strong>Website:</strong> <a href="https://tracyinterfaith.org/how-to-help/volunteering/ ">Click Here</a></li>
+      </ul>
+    </div>
+    </div>
+      <div class="card">
+        <div class="card-header">The Coalition</div>
+      <div class="card-body">
+        <ul>
+        <li><strong>Name:</strong> The Coalition</li>
+        <li><strong>Position:</strong> Volunteer</li>
+        <li><strong>Location:</strong> 26 W Emerson Ave, Tracy, CA 95376
+    </li>
+        <li><strong>Website:</strong> <a href="https://tracyhomeless.com/volunteer-interests/ ">Click Here</a></li>
+      </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header">CAMPRS</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> CAMPRS</li>
+      <li><strong>Position:</strong> Volunteer</li>
+      <li><strong>Location:</strong> 1001 W Center St, Manteca, CA 95337
+    </li>
+      <li><strong>Website:</strong> <a href="https://www.manteca.gov/departments/recreation-community-services/camprs-volunteer-program">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header">CAMPRS</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> CAMPRS</li>
+      <li><strong>Position:</strong> Kids Sports Assistant</li>
+      <li><strong>Location:</strong> 1001 W Center St, Manteca, CA 95337
+    </li>
+      <li><strong>Website:</strong> <a href="https://www.manteca.gov/departments/recreation-community-services/camprs-volunteer-program">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header">CAMPRS</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> CAMPRS</li>
+      <li><strong>Position:</strong> Kids Zone Assistant</li>
+      <li><strong>Location:</strong> 1001 W Center St, Manteca, CA 95337
+    </li>
+      <li><strong>Website:</strong> <a href="https://www.manteca.gov/departments/recreation-community-services/camprs-volunteer-program">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Escalon Volunteer Patrol</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> Escalon Volunteer Patrol</li>
+      <li><strong>Position:</strong> Volunteer</li>
+      <li><strong>Location:</strong> 2040 McHenry Ave Escalon,CA95320</li>
+      <li><strong>Website:</strong> <a href="https://www.cityofescalon.org/government/departments/development_services/community_programs2/Divisions/volunteers">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header"> Escalon Volunteer Patrol</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> Escalon Volunteer Patrol</li>
+      <li><strong>Position:</strong> Volunteer Officer</li>
+      <li><strong>Location:</strong> 2040 McHenry Ave Escalon,CA95320</li>
+      <li><strong>Website:</strong> <a href="https://www.cityofescalon.org/government/departments/development_services/community_programs2/Divisions/volunteers">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header"> Weekly Supplemental Food</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> Volunteer</li>
+      <li><strong>Position:</strong> Volunteer Officer</li>
+      <li><strong>Location:</strong> 1601 2nd Street Escalon, CA  95320</li>
+      <li><strong>Website:</strong> <a href="https://escaloncare.org/">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header"> Senior Brown Bag</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> Senior Brown Bag</li>
+      <li><strong>Position:</strong> Volunteer</li>
+      <li><strong>Location:</strong> 1601 2nd Street Escalon, CA  95320</li>
+      <li><strong>Website:</strong> <a href="https://escaloncare.org/">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header"> Color The Skies</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> Color The Skies</li>
+      <li><strong>Position:</strong> Volunteer</li>
+      <li><strong>Location:</strong> PO Box 1135 Ripon, CA 95366 United States</li>
+      <li><strong>Website:</strong> <a href="https://escaloncare.org/">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header"> Reserve & Volunteer Program</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> Reserve & Volunteer Program</li>
+      <li><strong>Position:</strong> Reserve Firefighter</li>
+      <li><strong>Location:</strong> 1749 Coley Avenue
+      Escalon, CA 95320</li>
+      <li><strong>Website:</strong> <a href="https://www.escalonfire.com/featured-project ">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header"> Garden Joy</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> Garden Joy</li>
+      <li><strong>Position:</strong> Gardener</li>
+      <li><strong>Location:</strong> PO BOX 971 RIPON, CA 95366 United States</li>
+      <li><strong>Website:</strong> <a href="https://www.gardenjoyca.com/">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header"> VITAS Healthcare</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> VITAS Healthcare</li>
+      <li><strong>Position:</strong> Volunteer</li>
+      <li><strong>Location:</strong> 16956 Harlan Road, Suite 2F Lathrop, CA 95330 United States</li>
+      <li><strong>Website:</strong> <a href="https://www.vitas.com/locations-search/east-bay/lathrop-hospice-office">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header"> VITAS Healthcare</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> VITAS Healthcare</li>
+      <li><strong>Position:</strong> Volunteer</li>
+      <li><strong>Location:</strong> 16956 Harlan Road, Suite 2F Lathrop, CA 95330 United States</li>
+      <li><strong>Website:</strong> <a href="https://www.vitas.com/locations-search/east-bay/lathrop-hospice-office">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header"> River Islands Academies Volunteer Program</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> River Islands Academies Volunteer Program</li>
+      <li><strong>Position:</strong> Volunteer</li>
+      <li><strong>Location:</strong> 18001 Commercial Street Lathrop, CA 95330</li>
+      <li><strong>Website:</strong> <a href="https://www.riacademies.net/VolunteerProgram_2021122165934388_202112217459892.aspx">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header"> Project Alley Cat</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> Project Alley Cat</li>
+      <li><strong>Position:</strong> Volunteer</li>
+      <li><strong>Location:</strong> Suite 452, 3200 Naglee Road Tracy</li>
+      <li><strong>Website:</strong> <a href="https://projectalleycat.org/about-us">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header"> River Islands Academies Volunteer Program</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> River Islands Academies Volunteer Program</li>
+      <li><strong>Position:</strong> Teacher Assistant</li>
+      <li><strong>Location:</strong> 18001 Commercial Street Lathrop, CA 95330</li>
+      <li><strong>Website:</strong> <a href="https://www.riacademies.net/VolunteerProgram_2021122165934388_202112217459892.aspx">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+      <div class="card">
+        <div class="card-header"> River Islands Academies Volunteer Program</div>
+      <div class="card-body">
+        <ul>
+        <li><strong>Name:</strong> River Islands Academies Volunteer Program</li>
+        <li><strong>Position:</strong> Tutor</li>
+        <li><strong>Location:</strong> 18001 Commercial Street Lathrop, CA 95330</li>
+        <li><strong>Website:</strong> <a href="https://www.riacademies.net/VolunteerProgram_2021122165934388_202112217459892.aspx">Click Here</a></li>
+      </ul>
+      </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Animal Control Volunteer Ripon</div>
+      <div class="card-body">
+        <ul>
+        <li><strong>Name:</strong> Animal Control Volunteer Ripon</li>
+        <li><strong>Position:</strong> Volunteer</li>
+        <li><strong>Location:</strong> 444 Doak Boulevard Ripon, CA 95366</li>
+        <li><strong>Website:</strong> <a href="https://www.cityofripon.org/225/Animal-Services ">Click Here</a></li>
+      </ul>
+      </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Police Service Volunteer in Ripon</div>
+      <div class="card-body">
+        <ul>
+        <li><strong>Name:</strong> Police Service Volunteer in Ripon</li>
+        <li><strong>Position:</strong> Volunteer</li>
+        <li><strong>Location:</strong> 259 N Wilma Ave, Ripon, CA 95366</li>
+        <li><strong>Website:</strong> <a href="https://www.cityofripon.org/253/Volunteers-in-Police-Service">Click Here</a></li>
+      </ul>
+      </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Bethany Hospice in Ripon</div>
+      <div class="card-body">
+        <ul>
+        <li><strong>Name:</strong> Bethany Hospice in Ripon</li>
+        <li><strong>Position:</strong> Hospice Volunteer</li>
+        <li><strong>Location:</strong> 930 W Main Street, Ripon</li>
+        <li><strong>Website:</strong> <a href="https://bethanyripon.org/volunteer">Click Here</a></li>
+      </ul>
+      </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Love ❤️ Ripon</div>
+      <div class="card-body">
+        <ul>
+        <li><strong>Name:</strong> Love ❤️ Ripon</li>
+        <li><strong>Position:</strong> Volunteer</li>
+        <li><strong>Location:</strong> Online</li>
+        <li><strong>Website:</strong> <a href="https://loveripon.com/">Click Here</a></li>
+      </ul>
+      </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Stockton-San Joaquin County Public Library</div>
+      <div class="card-body">
+        <ul>
+        <li><strong>Name:</strong> Stockton-San Joaquin County Public Library</li>
+        <li><strong>Position:</strong> Tutor</li>
+        <li><strong>Location:</strong> Libraries across the SJ County</li>
+        <li><strong>Website:</strong> <a href="https://www.ssjcpl.org/involved/volunteer.html">Click Here</a></li>
+      </ul>
+      </div>
+      </div>
+    <div class="card">
+      <div class="card-header"> Give Every Child a Chance</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> Give Every Child a Chance</li>
+      <li><strong>Position:</strong> Volunteer</li>
+      <li><strong>Location:</strong> Schools across Lathrop</li>
+      <li><strong>Website:</strong> <a href="https://gecac.net/volunteer-2/">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header"> Stockton Action Volunteers for the Environment</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> Stockton Action Volunteers for the Environment</li>
+      <li><strong>Position:</strong> Volunteer</li>
+      <li><strong>Location:</strong> Various Locations in Stockton</li>
+      <li><strong>Website:</strong> <a href="https://stockton.campuslabs.com/engage/organization/save">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="card">
+      <div class="card-header"> Manteca Youth Focus</div>
+    <div class="card-body">
+      <ul>
+      <li><strong>Name:</strong> Manteca Youth Focus</li>
+      <li><strong>Position:</strong> Volunteer</li>
+      <li><strong>Location:</strong> Various Locations in Manteca</li>
+      <li><strong>Website:</strong> <a href="https://mantecayouthfocus.org/">Click Here</a></li>
+    </ul>
+    </div>
+    </div>
+    
+
+    <footer>
       <div class="footer-col">
         <h4>Creators</h4>
         <ul>
