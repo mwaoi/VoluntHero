@@ -1,326 +1,279 @@
-<!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN” “http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon"
-    href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
-    type="image/x-icon" />
-</head>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+  <title>VoluntHero</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" type="image/x-icon" />
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  }
-
-  body {
-    background-color: #f7f7f7;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-
-  }
-
-  header {
-    background-color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 100px;
-    border-bottom: 1px solid #e0e0e0;
-  }
-
-  .logo {
-    font-size: 2rem;
-    color: #034692;
-    margin-right: 20px;
-  }
-
-  .logo a {
-    text-decoration: none;
-    color: #034692;
-  }
-
-  header nav ul {
-    list-style: none;
-    display: flex;
-    align-items: center;
-  }
-
-  header nav li {
-    margin-right: 20px;
-  }
-
-  header nav a {
-    font-size: 1.2rem;
-    color: #034692;
-    text-decoration: none;
-    transition: all 0.3s ease-in-out;
-  }
-
-  header nav a:hover {
-    color: #0267c4;
-  }
-
-  @media only screen and (max-width: 768px) {
-    header {
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #1f2937;
+      color: #1f2937;
+      display: flex;
       flex-direction: column;
+      min-height: 100vh;
+    }
 
-      padding: 10px;
+    /* Header */
+    header {
+      background-color: #ffffff;
+      padding: 10px 100px; /* Reduced padding to make the header more compact */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px; /* Fixed height for the header */
     }
 
     .logo {
-      margin-right: 0;
-    }
-
-    header nav ul {
-      flex-direction: column;
-
-    }
-
-    header nav li {
-      margin-right: 0;
-
-      margin-bottom: 10px;
-
-    }
-  }
-
-  .btnLogin-popup {
-    background-color: #034692;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .btnLogin-popup:hover {
-    background-color: #0267c4;
-  }
-
-  main {
-    padding: 20px 100px;
-    max-width: 1000px;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-
-  .hero {
-    background-color: #ffffff;
-    padding: 60px 100px;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .hero h1 {
-    font-size: 3rem;
-    color: #034692;
-    margin-bottom: 20px;
-  }
-
-  .hero p {
-    font-size: 1.5rem;
-    color: #666666;
-    margin-bottom: 20px;
-  }
-
-  .hero button {
-    width: 50%;
-    padding: 15px 20px;
-    margin-bottom: 20px;
-    border: none;
-    border-radius: 20px;
-    background-color: #034692;
-    color: #ffffff;
-    cursor: pointer;
-  }
-
-  .hero button:hover {
-    background-color: #0267c4;
-  }
-
-  @media only screen and (max-width: 768px) {
-    main {
-      padding: 10px 20px;
-      max-width: 100%;
-      flex: 1;
-    }
-
-    html,
-    body {
-      height: 100%;
-    }
-
-    body {
       display: flex;
-      flex-direction: column;
-    }
-
-
-    main {
-      flex: 1;
-      padding: 10px 20px;
-      max-width: 100%;
-
-    }
-
-    .hero {
-      padding: 20px 20px;
-
-      border-radius: 5px;
-      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-      min-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
+      gap: 10px;
+      margin-right: 500px; /* Adjust this value as needed */
+    }
+
+    .logo a {
+      display: inline-block; /* Ensure the link only takes up the size of the logo */
+      line-height: 0; /* Remove extra spacing caused by inline elements */
+      width: auto; /* Let the width adjust to the logo size */
+      height: auto; /* Let the height adjust to the logo size */
+    }
+
+    .logo img {
+      height: 300px; /* Adjusted logo size (reduce this if needed) */
+      width: auto; /* Maintain aspect ratio */
+    }
+
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2563eb;
+    }
+
+    .logo-text a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #2563eb, #1e40af);      
+      color: #ffffff;
+      padding: 100px 20px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
     }
 
     .hero h1 {
-      font-size: 2rem;
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
     }
 
     .hero p {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin-bottom: 40px;
+      line-height: 1.6;
     }
 
     .hero button {
-      width: 100%;
-      padding: 10px 15px;
-      font-size: 1.2rem;
+      background-color: #ffffff;
+      color: #2563eb;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
-  }
 
-  footer {
-    background-color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 100px;
-    border-top: 1px solid #e0e0e0;
-    margin-top: auto;
-    width: 100%;
-  }
+    .hero button:hover {
+      background-color: #f0f4ff;
+      transform: translateY(-2px);
+    }
 
-  .footer-col {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .footer-col h4 {
-    font-size: 1.5rem;
-    color: #034692;
-    margin-bottom: 20px;
-  }
-
-  ul {
-    list-style: none;
-  }
-
-  ul li {
-    margin-bottom: 10px;
-  }
-
-  ul li a {
-    font-size: 1.2rem;
-    color: #666666;
-    text-decoration: none;
-    transition: all 0.3s ease-in-out;
-  }
-
-  ul li a:hover {
-    color: #0267c4;
-  }
-
-  .links a {
-    display: inline-block;
-    height: 44px;
-    width: 44px;
-    color: #ffffff;
-    background-color: #034692;
-    border-radius: 50%;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .links a:hover {
-    background-color: #0267c4;
-  }
-
-  @media only screen and (max-width: 768px) {
+    /* Footer */
     footer {
-      flex-direction: row;
-      flex-wrap: wrap;
-      padding: 10px 20px;
-      max-height: 250px;
+      background-color: #1f2937;
+      color: #ffffff;
+      padding: 60px 100px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+      gap: 40px; /* Spacing between columns */
+      justify-content: center; /* Center the footer content horizontally */
+      align-items: start; /* Align columns to the top */
     }
 
     .footer-col {
-      flex: 1;
-      margin: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center align the content within each column */
+      text-align: center; /* Center the text */
     }
 
-    .links {
-      justify-content: center;
+    .footer-col h4 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #ffffff;
     }
 
-    .links a {
-      margin: 5px;
+    .footer-col ul {
+      list-style: none;
+      padding: 0; /* Remove default padding */
     }
-  }
-</style>
 
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      text-decoration: none;
+      color: #d1d5db;
+      transition: color 0.3s ease;
+    }
+
+    .footer-col ul li a:hover {
+      color: #2563eb;
+    }
+
+    .footer-col .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .footer-col .social-icons a {
+      color: #d1d5db;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-col .social-icons a:hover {
+      color: #2563eb;
+    }
+
+    .footer-col .newsletter {
+      display: flex;
+      flex-direction: column; /* Stack input and button vertically */
+      gap: 10px; /* Spacing between input and button */
+      align-items: center; /* Center align the content */
+      width: 100%; /* Ensure the newsletter container takes full width */
+      max-width: 300px; /* Set a max-width for the newsletter container */
+    }
+
+    .footer-col .newsletter input {
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 5px;
+      background-color: transparent;
+      align-items: right;
+      color: #ffffff;
+      width: 70%; /* Make input take full width */
+      max-width: 70%; /* Ensure input doesn't exceed the container's max-width */
+    }
+
+    .footer-col .newsletter button {
+      padding: 10px 20px;
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 70%; /* Make button take full width */
+      max-width: 70%; /* Ensure button doesn't exceed the container's max-width */
+    }
+
+    .footer-col .newsletter button:hover {
+      background-color: #1e40af;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header, footer {
+        padding: 20px;
+      }
+
+      footer {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+        text-align: center;
+      }
+
+      .footer-col {
+        align-items: center;
+      }
+    }
+  </style>
+</head>
 <body>
   <header>
     <div class="logo">
-      <a href="index.html">VoluntHero</a>
+      <a href="index.html">
+        <img src="images/logo.PNG" alt="VoluntHero" />
+      </a>
+      <div class="logo-text">
+        <a href="index.html"></a>
+      </div>
     </div>
-
   </header>
+
   <main>
     <section class="hero">
       <h1>Welcome to VoluntHero</h1>
-      <p>VoluntHero enables our youth to impact our community through safe, inclusive, and meaningful volunteering
-        opportunities. </p>
+      <p>VoluntHero enables our youth to impact our community through safe, inclusive, and meaningful volunteering opportunities.</p>
       <a href="forum.html"><button class="learn-more">Get Started</button></a>
     </section>
   </main>
+
   <footer>
     <div class="footer-col">
       <h4>Creators</h4>
       <ul>
         <li><a href="https://www.linkedin.com/in/itsmichaellin/">Michael Lin</a></li>
         <li><a href="https://www.linkedin.com/in/sehaj-gill-b88770329/">Sehaj Gill</a></li>
-        <li><a
-            href="https://www.linkedin.com/in/samarth-gill-33a9a82b3/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app">Samarth
-            Gill</a></li>
+        <li><a href="https://www.linkedin.com/in/samarth-gill-33a9a82b3/">Samarth Gill</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Socials</h4>
-      <ul>
-
-        <li><a href="https://www.stocktonusd.net/SECA">SECA Site</a></li>
-        <li><a href="mailto:voluntherocontact@gmail.com">Contact</a></li>
-        <li><a href="https://linktr.ee/sehajg">Link Tree</a></li>
-      </ul>
+      <div class="social-icons">
+        <a href="mailto:voluntherocontact@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://linktr.ee/sehajg"><i class="fas fa-link"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Newsletter</h4>
+      <div class="newsletter">
+        <input type="email" placeholder="Enter your email" />
+        <button>Subscribe</button>
+      </div>
     </div>
   </footer>
 </body>
-
 </html>
