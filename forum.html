@@ -1,15 +1,1462 @@
-<!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN” “http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoluntHero - Forum</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="icon"
     href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
-    type="image/x-icon">
-  <link rel="stylesheet" href="style.css">
+    type="image/x-icon" />
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background-color: #ffffff;
+      padding: 10px 100px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: 500px;
+    }
+
+    .logo img {
+      height: 300px;
+      width: auto;
+    }
+
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2563eb;
+    }
+
+    .logo-text a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Search Bar */
+    .search {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .search img {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+
+    #searchBar {
+      width: 50px;
+      padding: 12px;
+      border: none;
+      border-radius: 20px;
+      background-color: #f7f7f7;
+      background-size: 20px 20px;
+      background-position: 5px 5px;
+      background-repeat: no-repeat;
+      transition: width 0.5s;
+      cursor: pointer;
+    }
+
+    #searchBar:hover {
+      width: 50px;
+      padding: 12px 24px;
+      background-color: #ffffff;
+      border: 3px solid #cccccc;
+    }
+
+    #searchBar:focus {
+      width: 50px;
+      padding: 12px 24px;
+      background-color: #ffffff;
+    }
+
+    #searchBar::placeholder {
+      color: #cccccc;
+    }
+
+    /* Dropdown Menu */
+    .dropdown {
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
+    }
+
+    select {
+      width: 200px;
+      height: 30px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    select:focus {
+      border-color: #aaa;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .forum-container {
+      width: 80%;
+      max-width: 1200px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .forum-container h1 {
+      font-size: 2rem;
+      color: #2563eb;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .card {
+      background-color: #ffffff;
+      width: 23%;
+      margin: 10px 0;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #2563eb;
+    }
+
+    .card-body {
+      font-size: 1rem;
+      color: #1f2937;
+    }
+
+    .card-body ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .card-body li {
+      margin-bottom: 10px;
+    }
+
+    .card-body a {
+      text-decoration: none;
+      color: #2563eb;
+    }
+
+    .card-body a:hover {
+      color: #1e40af;
+    }
+
+    @media (max-width: 768px) {
+      header,
+      footer {
+        padding: 10px 20px;
+      }
+
+      .forum-container {
+        width: 100%;
+        padding: 15px;
+      }
+
+      .forum-container h1 {
+        font-size: 1.5rem;
+      }
+
+      .card {
+        width: 100%;
+      }
+
+      #searchBar {
+        width: 200px;
+        padding: 10px 20px;
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+        transition: none;
+        background-image: none;
+      }
+
+      /* Hide logo and dropdown on mobile */
+      .logo,
+      .dropdown {
+        display: none;
+      }
+
+      /* Center the search bar */
+      .search {
+        width: 100%;
+        justify-content: center;
+      }
+
+      #searchBar {
+        width: 80%;
+        max-width: 300px;
+      }
+    }
+
+    footer {
+      background-color: #1f2937;
+      color: #ffffff;
+      padding: 60px 100px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      justify-content: center;
+      align-items: start;
+    }
+
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-col h4 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      text-decoration: none;
+      color: #d1d5db;
+      transition: color 0.3s ease;
+    }
+
+    .footer-col ul li a:hover {
+      color: #2563eb;
+    }
+
+    .footer-col .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .footer-col .social-icons a {
+      color: #d1d5db;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-col .social-icons a:hover {
+      color: #2563eb;
+    }
+
+    .footer-col .newsletter {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .footer-col .newsletter input {
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 5px;
+      background-color: transparent;
+      color: #ffffff;
+      width: 70%;
+      max-width: 70%;
+    }
+
+    .footer-col .newsletter button {
+      padding: 10px 20px;
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 70%;
+      max-width: 70%;
+    }
+
+    .footer-col .newsletter button:hover {
+      background-color: #1e40af;
+    }
+
+    @media (max-width: 768px) {
+      header,
+      footer {
+        padding: 20px;
+      }
+
+      footer {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-col {
+        align-items: center;
+      }
+    }
+  </style>
 </head>
+
+<body>
+  <!-- Only one header section -->
+  <header>
+    <div class="logo">
+      <a href="index.html">
+        <img src="images/logo.PNG" alt="VoluntHero" />
+      </a>
+      <div class="logo-text">
+        <a href="index.html"></a>
+      </div>
+    </div>
+    <div class="search" style="display: flex; align-items: center;">
+      <img src="https://cdn-icons-png.flaticon.com/512/54/54481.png" alt="Search Icon" />
+      <input type="text" id="searchBar" onkeyup="searchFunction()" placeholder="Search" style="flex: 1; padding: 5px;">
+    </div>
+    <div class="dropdown">
+      <select onchange="filterByCity()">
+        <option value="" label="Click to select a city">Pick A City</option>
+        <option value="Sacramento" label="Sacramento">Sacramento</option>
+        <option value="Modesto" label="Modesto">Modesto</option>
+        <option value="Stockton" label="Stockton">Stockton</option>
+        <option value="Tracy" label="Tracy">Tracy</option>
+        <option value="Manteca" label="Manteca">Manteca</option>
+        <option value="Lodi" label="Lodi">Lodi</option>
+        <option value="Lathrop" label="Lathrop">Lathrop</option>
+        <option value="Ripon" label="Ripon">Ripon</option>
+        <option value="Escalon" label="Escalon">Escalon</option>
+      </select>
+    </div>
+  </header>
+
+
+  <main>
+    <div class="card-container">
+      <div class="card">
+        <div class="card-header">Wildlife Conservation Alliance</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name: </strong>Wildlife Conservation Alliance</li>
+            <li><strong>Position: </strong>Volunteer</li>
+            <li><strong>Location: </strong>1050 Brookside Rd Stockton, CA 95211 United States
+            </li>
+            <li><strong>Website:</strong> <a href="https://www.instagram.com/wildcaofficial/"> Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">City of Stockton Clean City Initiative</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name: </strong>City of Stockon</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 22 E Weber Ave. Room 301
+              Stockton, CA 95202
+              United States
+            </li>
+            <li><strong>Website:</strong> <a href="http://www.stocktonca.gov/cleancity">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Global English Alliance Teacher</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Global English Alliance </li>
+            <li><strong>Position:</strong> Online Teacher</li>
+            <li><strong>Location:</strong> 2325 Henri Lane
+              Lodi, CA 95242
+              United States
+            </li>
+            <li><strong>Website:</strong> <a href="http://www.globalenglishalliance.org/"> Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Lodi Public Library Volunteer
+        </div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Public Library
+
+            </li>
+            <li><strong>Position:</strong> Online Helper</li>
+            <li><strong>Location:</strong> 201 W. Locust Street Lodi, CA 95240 United States</li>
+            <li><strong>Website:</strong> <a href="http://www.lodi.gov/library/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Lodi Public Library Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Public Library</li>
+            <li><strong>Position:</strong> Adult Literacy Program</li>
+            <li><strong>Location:</strong> 201 W. Locust Street Lodi, CA 95240 United States
+
+            </li>
+            <li><strong>Website:</strong> <a href="http://www.lodi.gov/library/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Lodi Public Library Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Public Library</li>
+            <li><strong>Position:</strong> Tutor for Kids</li>
+            <li><strong>Location:</strong> 201 W. Locust Street Lodi, CA 95240 United States</li>
+            <li><strong>Website:</strong> <a href="http://www.lodi.gov/library/
+
+            ">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Tracy Earth Project
+        </div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Tracy</li>
+            <li><strong>Position:</strong> IT Assistant
+            </li>
+            <li><strong>Location:</strong> 355 Hollywood Ave Tracy, CA 95376 United States
+
+            </li>
+            <li><strong>Website:</strong> <a href="https://tracyearthproject.com/
+
+            ">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Bristol Hospice Volunteer
+        </div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Bristol Hospice
+            </li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 1101 Sylvan Avenue Modesto, CA 95350 United States
+
+            </li>
+            <li><strong>Website:</strong> <a href="http://www.bristolhospice-modesto.com
+            ">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Bristol Hospice Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Bristol Hospice</li>
+            <li><strong>Position:</strong> Caregiver Relief
+            </li>
+            <li><strong>Location:</strong> 1101 Sylvan Avenue Modesto, CA 95350 United States
+
+            </li>
+            <li><strong>Website:</strong> <a href="http://www.bristolhospice-modesto.com">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Bristol Hospice Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Bristol Hospice</li>
+            <li><strong>Position:</strong> Companion</li>
+            <li><strong>Location:</strong> 1101 Sylvan Avenue Modesto, CA 95350 United States
+            </li>
+            <li><strong>Website:</strong> <a href="http://www.bristolhospice-modesto.com">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Gentiva Hospice Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Gentiva Hospice</li>
+            <li><strong>Position:</strong> Student Volunteer</li>
+            <li><strong>Location:</strong> 3001 Coffee Rd Modesto, CA 95355 United States
+            </li>
+            <li><strong>Website:</strong> <a href="http://www.gentivahs.com">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Gentiva Hospice Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Gentiva Hospice</li>
+            <li><strong>Position:</strong> Administration</li>
+            <li><strong>Location:</strong> 3001 Coffee Rd Modesto, CA 95355 United States
+            </li>
+            <li><strong>Website:</strong> <a href="http://www.gentivahs.com">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Gentiva Hospice Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Gentiva Hospice</li>
+            <li><strong>Position:</strong> Hospice Volunteers
+
+            </li>
+            <li><strong>Location:</strong> 3001 Coffee Rd Modesto, CA 95355 United States
+            </li>
+            <li><strong>Website:</strong> <a href="http://www.gentivahs.com">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Gentiva Hospice Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Gentiva Hospice</li>
+            <li><strong>Position:</strong> Caregiver Relief
+
+            </li>
+            <li><strong>Location:</strong> 3001 Coffee Rd Modesto, CA 95355 United States
+            </li>
+            <li><strong>Website:</strong> <a href="http://www.gentivahs.com">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Reach Out & Read San Joaquin</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Reach Out & Read Program</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 605 N. El Dorado St Stockton, CA 95202 United States
+            </li>
+            <li><strong>Website:</strong> <a href="https://www.ssjcpl.org/locations/stockton/chavez.html">Click Here</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Court Appointed Advocates of Stanislaus County</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> CASA</li>
+            <li><strong>Position:</strong> Volunteer Advocate
+
+            </li>
+            <li><strong>Location:</strong> 801 11th Street Modesto, CA 95354 United States
+            </li>
+            <li><strong>Website:</strong> <a href="http://www.casaofstanco.org 
+            ">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Global Hospice and Palliative Care
+        </div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Global Hospice Volunteer</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 1200 G St Suite B Modesto, CA 95354 United States
+            </li>
+            <li><strong>Website:</strong> <a href="https://www.globalhospiceandpalliativecare.com/ ">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Global Hospice and Palliative Care
+        </div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Global Hospice Volunteer</li>
+            <li><strong>Position:</strong> Office Volunteer</li>
+            <li><strong>Location:</strong> 1200 G St Suite B Modesto, CA 95354 United States
+            </li>
+            <li><strong>Website:</strong> <a href="https://www.globalhospiceandpalliativecare.com/ ">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">American Red Cross Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> American Red Cross Stanislaus County</li>
+            <li><strong>Position:</strong> Blood Transportation Driver</li>
+            <li><strong>Location:</strong> 1230 6 Street Modesto, CA 95354 United States</li>
+            <li><strong>Website:</strong> <a href="http://www.redcross.org/centralcoast">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">American Red Cross Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> American Red Cross Stanislaus County</li>
+            <li><strong>Position:</strong> Blood Serivce Volunteer</li>
+            <li><strong>Location:</strong> 1230 6 Street Modesto, CA 95354 United States</li>
+            <li><strong>Website:</strong> <a href="http://www.redcross.org/centralcoast">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">American Red Cross Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> </li>
+            <li><strong>Position:</strong> Help and Neighbour</li>
+            <li><strong>Location:</strong> 1230 6 Street Modesto, CA 95354 United States</li>
+            <li><strong>Website:</strong> <a href="http://www.redcross.org/centralcoast">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">American Red Cross Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> American Red Cross Stanislaus County</li>
+            <li><strong>Position:</strong> Fire Disaster Relief</li>
+            <li><strong>Location:</strong> 1230 6 Street Modesto, CA 95354 United States</li>
+            <li><strong>Website:</strong> <a href="http://www.redcross.org/centralcoast">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">American Red Cross Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> American Red Cross Stanislaus County</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 1230 6 Street Modesto, CA 95354 United States</li>
+            <li><strong>Website:</strong> <a href="http://www.redcross.org/centralcoast">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">American Red Cross Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> American Red Cross Stanislaus County</li>
+            <li><strong>Position:</strong> Volunteer from Home</li>
+            <li><strong>Location:</strong> 1230 6 Street Modesto, CA 95354 United States</li>
+            <li><strong>Website:</strong> <a href="http://www.redcross.org/centralcoast">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">The Shire Community Space
+        </div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Shire Community Volunteer</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 1214 H Street Modesto, CA 95354 United States
+
+            </li>
+            <li><strong>Website:</strong> <a
+                href="https://www.idealist.org/en/nonprofit/24f296191cfc404681b20345990b06c3-the-shire-community-space-modesto">Click
+                Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Merced LGBTQ Alliance
+
+        </div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> LGBTQ Alliance</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> PO BOX 2104 MERCED, CA 95344 United States
+
+            </li>
+            <li><strong>Website:</strong> <a href="https://www.lgbtqmerced.org/about/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">FCL Educational Fund</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Friends Committee on Legislation of California</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 1225 8TH STREET SACRAMENTO, CA 95814 United States</li>
+            <li><strong>Website:</strong> <a href="http://www.fclca.org">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Blossom Ridge Hospice Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Blossom Ridge Hospice</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 520 9th Street Suite 240 Sacramento, CA 95814 United States</li>
+            <li><strong>Website:</strong> <a href="http://www.blossomridge.net ">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Blossom Ridge Hospice Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Blossom Ridge Hospice</li>
+            <li><strong>Position:</strong> Patient Support</li>
+            <li><strong>Location:</strong> 520 9th Street Suite 240 Sacramento, CA 95814 United States</li>
+            <li><strong>Website:</strong> <a href="http://www.blossomridge.net ">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Blossom Ridge Hospice Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Blossom Ridge Hospice</li>
+            <li><strong>Position:</strong> Office Support</li>
+            <li><strong>Location:</strong> 520 9th Street Suite 240 Sacramento, CA 95814 United States</li>
+            <li><strong>Website:</strong> <a href="http://www.blossomridge.net ">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Blossom Ridge Hospice Volunteer</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Blossom Ridge Hospice</li>
+            <li><strong>Position:</strong> Office Volunteer</li>
+            <li><strong>Location:</strong> 520 9th Street Suite 240 Sacramento, CA 95814 United States</li>
+            <li><strong>Website:</strong> <a href="http://www.blossomridge.net ">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Sacramento Chinese Community Service Center</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Chinese Community Center Volunteer</li>
+            <li><strong>Position:</strong> Tutor</li>
+            <li><strong>Location:</strong> 420 I Street, Suite 5 Sacramento, CA 95814 United States</li>
+            <li><strong>Website:</strong> <a href="https://sccsc.org/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">California Volunteers</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> California Volunteers</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 1400 10th Street Sacramento, CA 95814 United States</li>
+            <li><strong>Website:</strong> <a href="https://www.californiavolunteers.ca.gov/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Emergency Food Bank Stockton</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Stockton Food Bank Volunteer</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 7 W. Scotts Avenue
+              Stockton, CA 95203</li>
+            <li><strong>Website:</strong> <a href="https://www.stocktonfoodbank.org/Get-Involved/Volunteer">Click
+                Here</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Crisis Text Line</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Crisis Text Line</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> All Across The United States Nationwide, CA 90011
+            </li>
+            <li><strong>Website:</strong> <a href="https://www.crisistextline.org/become-a-volunteer/">Click Here</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">California Volunteers</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> California Volunteers</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> All Across The United States Nationwide, CA 90011</li>
+            <li><strong>Website:</strong> <a href="https://www.californiavolunteers.ca.gov/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Sonder Hospice Care</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Sonder Hospice Volunteer</li>
+            <li><strong>Position:</strong> Helping Hand</li>
+            <li><strong>Location:</strong> 248 West Fremont Street Sacramento, CA 95203
+            </li>
+            <li><strong>Website:</strong> <a href="https://sonderhealthcare.com/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Direct Hospice Care</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Direct Hospice Care</li>
+            <li><strong>Position:</strong> Senior Helper</li>
+            <li><strong>Location:</strong> 11700 Dublin Blvd Ste. 100, Dublin, CA 94568, US</li>
+            <li><strong>Website:</strong> <a href="http://www.directhospicecare.net/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Sentinels</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Sentinels Volunteer</li>
+            <li><strong>Position:</strong> Patrol</li>
+            <li><strong>Location:</strong> 22 E. Weber Ave.
+              Stockton, CA 95202</li>
+            <li><strong>Website:</strong> <a
+                href="https://www.stocktonca.gov/services/police_department/programs___services/sentinels.php ">Click
+                Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Haven of Peace Women's Emergency Home</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Haven of Peace</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 7070 S Harlan Rd French Camp, CA 95231
+            </li>
+            <li><strong>Website:</strong> <a
+                href="https://www.yelp.com/biz/haven-of-peace-womens-emergency-home-french-camp?osq=Volunteer+Opportunities&override_cta=Request+information">Click
+                Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Police Reserve Officers</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Police Reserve Officers</li>
+            <li><strong>Position:</strong> Reserve Officer</li>
+            <li><strong>Location:</strong> 22 E. Weber Ave.
+              Stockton, CA 95202</li>
+            <li><strong>Website:</strong> <a
+                href="https://www.stocktonca.gov/services/police_department/programs___services/police_reserve_officers.php ">Click
+                Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Harvest Home Animal Sanctuary</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Animal Sanctuary</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 14741 S Wing Levee Rd, Stockton, CA 95206</li>
+            <li><strong>Website:</strong> <a href="https://harvesthomesanctuary.org/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Good Samaritan Community Thrift</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Good Samaritan Community Thrift</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 7939 W 11th St Tracy, CA 95304</li>
+            <li><strong>Website:</strong> <a href="https://www.facebook.com/goodsamaritancommunitythrift/">Click
+                Here</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Pets & Pals Animal Shelter</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Animal Shelter</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 12488 S Harlan Rd Lathrop, CA 95330
+            </li>
+            <li><strong>Website:</strong> <a href="https://petsnpals.org/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Orphan Kitten Rescue</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Kitten Rescue</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 1322 Daniels St Manteca, CA 95337
+            </li>
+            <li><strong>Website:</strong> <a href="https://www.facebook.com/orphankittenrescue.info/">Click Here</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Friends Outside</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Friends Outside</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 7272 Murray Dr Stockton, CA 95210</li>
+            <li><strong>Website:</strong> <a href="https://www.friendsoutside.org/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Zion Lutheran Church-Food Bank</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Food Bank</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 808 Porter Ave Stockton, CA 95207
+            </li>
+            <li><strong>Website:</strong> <a href="https://www.zionlutheranstockton.org/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">The Family Giving Tree</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> The Family Giving Tree</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 606 Valley Way Milpitas, CA 95035
+            </li>
+            <li><strong>Website:</strong> <a href="https://www.familygivingtree.org">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Stockton Art League Goodwin Gallery</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Goodwin Gallery</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 1902 Pacific Ave Stockton, CA 95204
+            </li>
+            <li><strong>Website:</strong> <a href="https://www.stocktonartleague.org">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Union Gospel Mission</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Union Gospel</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 400 Bannon St Sacramento, CA 95811
+            </li>
+            <li><strong>Website:</strong> <a href="https://www.ugmsac.com">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Finding A Best Friend Rescue</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Finding A Best Friend Rescue</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> See Website</li>
+            <li><strong>Website:</strong> <a href="https://www.findingabestfriend.org">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">VITAS Healthcare</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> VITAS Healthcare</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 16956 S Harlan Rd Ste 2f Lathrop, CA 95330</li>
+            <li><strong>Website:</strong> <a
+                href="https://www.vitas.com/locations-search/east-bay/?utm_source=yelp&utm_medium=locallisting&utm_content=SAT9101">Click
+                Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Animal Rescue of Tracy</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Animal Rescue</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 3200 N Naglee Rd Ste 452 Tracy, CA 95304</li>
+            <li><strong>Website:</strong> <a href="https://www.animalrescuetracy.org">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Coyote Crossing Ranch</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Coyote Crossing Ranch</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 3725 Willow Wy Discovery Bay, CA 94505</li>
+            <li><strong>Website:</strong> <a href="https://www.coyotecrossingrescue.com">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Assistance League Of Stockton</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Assistance League Of Stockton</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 1323 E Harding Way Stockton, CA 95205</li>
+            <li><strong>Website:</strong> <a href="https://www.stockton.assistanceleague.org">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">The One-Eighty</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> The One-Eighty</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 17 W Lockeford St Lodi, CA 95240</li>
+            <li><strong>Website:</strong> <a href="https://www.180lodi.org">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Chest of Hope</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Chest of Hope</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 68 E 11th St #106 Tracy, CA 95376 United States</li>
+            <li><strong>Website:</strong> <a href="https://chestofhope.org/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Grand Theatre Center for the Arts</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Grand Theatre Center for the Arts</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 715 Central Ave. Tracy, CA 95376 United States
+            </li>
+            <li><strong>Website:</strong> <a href="https://atthegrand.org/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Tracy Interfaith Ministries</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Tracy Interfaith Ministries</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 715 Central Ave. Tracy, CA 95376 United States
+            </li>
+            <li><strong>Website:</strong> <a href="https://tracyinterfaith.org/how-to-help/volunteering/ ">Click
+                Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">The Coalition</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> The Coalition</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 26 W Emerson Ave, Tracy, CA 95376
+            </li>
+            <li><strong>Website:</strong> <a href="https://tracyhomeless.com/volunteer-interests/ ">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">CAMPRS</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> CAMPRS</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 1001 W Center St, Manteca, CA 95337
+            </li>
+            <li><strong>Website:</strong> <a
+                href="https://www.manteca.gov/departments/recreation-community-services/camprs-volunteer-program">Click
+                Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">CAMPRS</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> CAMPRS</li>
+            <li><strong>Position:</strong> Kids Sports Assistant</li>
+            <li><strong>Location:</strong> 1001 W Center St, Manteca, CA 95337
+            </li>
+            <li><strong>Website:</strong> <a
+                href="https://www.manteca.gov/departments/recreation-community-services/camprs-volunteer-program">Click
+                Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">CAMPRS</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> CAMPRS</li>
+            <li><strong>Position:</strong> Kids Zone Assistant</li>
+            <li><strong>Location:</strong> 1001 W Center St, Manteca, CA 95337
+            </li>
+            <li><strong>Website:</strong> <a
+                href="https://www.manteca.gov/departments/recreation-community-services/camprs-volunteer-program">Click
+                Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Escalon Volunteer Patrol</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Escalon Volunteer Patrol</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 2040 McHenry Ave Escalon,CA95320</li>
+            <li><strong>Website:</strong> <a
+                href="https://www.cityofescalon.org/government/departments/development_services/community_programs2/Divisions/volunteers">Click
+                Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Escalon Volunteer Patrol</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Escalon Volunteer Patrol</li>
+            <li><strong>Position:</strong> Volunteer Officer</li>
+            <li><strong>Location:</strong> 2040 McHenry Ave Escalon,CA95320</li>
+            <li><strong>Website:</strong> <a
+                href="https://www.cityofescalon.org/government/departments/development_services/community_programs2/Divisions/volunteers">Click
+                Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Weekly Supplemental Food</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Volunteer</li>
+            <li><strong>Position:</strong> Volunteer Officer</li>
+            <li><strong>Location:</strong> 1601 2nd Street Escalon, CA 95320</li>
+            <li><strong>Website:</strong> <a href="https://escaloncare.org/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Senior Brown Bag</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Senior Brown Bag</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 1601 2nd Street Escalon, CA 95320</li>
+            <li><strong>Website:</strong> <a href="https://escaloncare.org/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Color The Skies</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Color The Skies</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> PO Box 1135 Ripon, CA 95366 United States</li>
+            <li><strong>Website:</strong> <a href="https://escaloncare.org/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Reserve & Volunteer Program</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Reserve & Volunteer Program</li>
+            <li><strong>Position:</strong> Reserve Firefighter</li>
+            <li><strong>Location:</strong> 1749 Coley Avenue
+              Escalon, CA 95320</li>
+            <li><strong>Website:</strong> <a href="https://www.escalonfire.com/featured-project ">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Garden Joy</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Garden Joy</li>
+            <li><strong>Position:</strong> Gardener</li>
+            <li><strong>Location:</strong> PO BOX 971 RIPON, CA 95366 United States</li>
+            <li><strong>Website:</strong> <a href="https://www.gardenjoyca.com/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> VITAS Healthcare</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> VITAS Healthcare</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 16956 Harlan Road, Suite 2F Lathrop, CA 95330 United States</li>
+            <li><strong>Website:</strong> <a
+                href="https://www.vitas.com/locations-search/east-bay/lathrop-hospice-office">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> VITAS Healthcare</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> VITAS Healthcare</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 16956 Harlan Road, Suite 2F Lathrop, CA 95330 United States</li>
+            <li><strong>Website:</strong> <a
+                href="https://www.vitas.com/locations-search/east-bay/lathrop-hospice-office">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> River Islands Academies Volunteer Program</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> River Islands Academies Volunteer Program</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 18001 Commercial Street Lathrop, CA 95330</li>
+            <li><strong>Website:</strong> <a
+                href="https://www.riacademies.net/VolunteerProgram_2021122165934388_202112217459892.aspx">Click Here</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Project Alley Cat</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Project Alley Cat</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> Suite 452, 3200 Naglee Road Tracy</li>
+            <li><strong>Website:</strong> <a href="https://projectalleycat.org/about-us">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> River Islands Academies Volunteer Program</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> River Islands Academies Volunteer Program</li>
+            <li><strong>Position:</strong> Teacher Assistant</li>
+            <li><strong>Location:</strong> 18001 Commercial Street Lathrop, CA 95330</li>
+            <li><strong>Website:</strong> <a
+                href="https://www.riacademies.net/VolunteerProgram_2021122165934388_202112217459892.aspx">Click Here</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> River Islands Academies Volunteer Program</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> River Islands Academies Volunteer Program</li>
+            <li><strong>Position:</strong> Tutor</li>
+            <li><strong>Location:</strong> 18001 Commercial Street Lathrop, CA 95330</li>
+            <li><strong>Website:</strong> <a
+                href="https://www.riacademies.net/VolunteerProgram_2021122165934388_202112217459892.aspx">Click Here</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Animal Control Volunteer Ripon</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Animal Control Volunteer Ripon</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 444 Doak Boulevard Ripon, CA 95366</li>
+            <li><strong>Website:</strong> <a href="https://www.cityofripon.org/225/Animal-Services ">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Police Service Volunteer in Ripon</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Police Service Volunteer in Ripon</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> 259 N Wilma Ave, Ripon, CA 95366</li>
+            <li><strong>Website:</strong> <a href="https://www.cityofripon.org/253/Volunteers-in-Police-Service">Click
+                Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Bethany Hospice in Ripon</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Bethany Hospice in Ripon</li>
+            <li><strong>Position:</strong> Hospice Volunteer</li>
+            <li><strong>Location:</strong> 930 W Main Street, Ripon</li>
+            <li><strong>Website:</strong> <a href="https://bethanyripon.org/volunteer">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Love ❤️ Ripon</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Love ❤️ Ripon</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> Online</li>
+            <li><strong>Website:</strong> <a href="https://loveripon.com/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Stockton-San Joaquin County Public Library</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Stockton-San Joaquin County Public Library</li>
+            <li><strong>Position:</strong> Tutor</li>
+            <li><strong>Location:</strong> Libraries across the SJ County</li>
+            <li><strong>Website:</strong> <a href="https://www.ssjcpl.org/involved/volunteer.html">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Give Every Child a Chance</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Give Every Child a Chance</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> Schools across Lathrop</li>
+            <li><strong>Website:</strong> <a href="https://gecac.net/volunteer-2/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Stockton Action Volunteers for the Environment</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Stockton Action Volunteers for the Environment</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> Various Locations in Stockton</li>
+            <li><strong>Website:</strong> <a href="https://stockton.campuslabs.com/engage/organization/save">Click
+                Here</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"> Manteca Youth Focus</div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Name:</strong> Manteca Youth Focus</li>
+            <li><strong>Position:</strong> Volunteer</li>
+            <li><strong>Location:</strong> Various Locations in Manteca</li>
+            <li><strong>Website:</strong> <a href="https://mantecayouthfocus.org/">Click Here</a></li>
+          </ul>
+        </div>
+      </div>
+  </main>
+
+  <footer>
+    <div class="footer-col">
+      <h4>Creators</h4>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/itsmichaellin/">Michael Lin</a></li>
+        <li><a href="https://www.linkedin.com/in/sehaj-gill-b88770329/">Sehaj Gill</a></li>
+        <li><a href="https://www.linkedin.com/in/samarth-gill-33a9a82b3/">Samarth Gill</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Socials</h4>
+      <div class="social-icons">
+        <a href="mailto:voluntherocontact@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://linktr.ee/sehajg"><i class="fas fa-link"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Newsletter</h4>
+      <div class="newsletter">
+        <input type="email" placeholder="Enter your email" />
+        <button>Subscribe</button>
+      </div>
+    </div>
+  </footer>
+
   <script>
     function searchFunction() {
       var input, filter, cards, cardContainer, txtValue, i;
@@ -39,7 +1486,7 @@
       cards = cardContainer.getElementsByClassName("card");
 
       for (i = 0; i < cards.length; i++) {
-        var locationField = cards[i].querySelector('li:nth-child(3)'); 
+        var locationField = cards[i].querySelector('li:nth-child(3)');
         if (locationField) {
           txtValue = locationField.textContent.toUpperCase();
           if (txtValue.includes(filter) || filter === "SELECT A CITY") {
@@ -51,1524 +1498,10 @@
       }
     }
 
-    
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       document.querySelector('select').addEventListener('change', filterByCity);
     });
   </script>
-
-
-
-
-<style>
-  progress {
-    vertical-align: baseline;
-  }
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-  }
-
-  html {
-    line-height: 1.15;
-    /* 1 */
-    -webkit-text-size-adjust: 100%;
-    /* 2 */
-  }
-
-  body {
-    background-color: #f7f7f7;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    padding: 0px;
-  }
-
-  header {
-    background-color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 100px;
-    border-bottom: 1px solid #e0e0e0;
-  }
-
-  .logo {
-    font-size: 2rem;
-    color: #034692;
-    align-items: center;
-  }
-  select {
-    width: 200px;
-    height: 30px;
-    padding: 5px; 
-    border: 1px solid #ccc; 
-    border-radius: 5px; 
-    font-size: 16px; 
-    font-family: Arial, sans-serif; 
-    background-color: #f9f9f9;
-    color: #333;
-  }
-
-  select:focus {
-    border-color: #aaa; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-  }
-
-  #searchBar {
-    width: 110px;
-    padding: 12px;
-    border: none;
-    border-radius: 20px;
-    background-color: #f7f7f7;
-    background-size: 20px 20px;
-    background-position: 5px 5px;
-    background-repeat: no-repeat;
-    transition: width 0.5s;
-    cursor: pointer;
-  }
-
-  #searchBar:hover {
-    width: 220px;
-    padding: 12px 24px;
-    background-color: #ffffff;
-    border: 3px solid #cccccc;
-  }
-
-  #searchBar:focus {
-    width: 220px;
-    padding: 12px 24px;
-    background-color: #ffffff;
-  }
-
-  #searchBar::placeholder {
-    color: #cccccc;
-  }
-
-  @media only screen and (max-width: 768px) {
-    #searchBar {
-      width: 200px;
-      padding: 10px 20px;
-      background-color: #ffffff;
-      border: 1px solid #cccccc;
-      transition: none;
-      background-image: none;
-
-    }
-  }
-
-  @media only screen and (max-width: 768px) {
-    header {
-      flex-direction: column;
-      /* Stack header elements vertically on mobile */
-      padding: 10px;
-      /* Adjust padding for mobile */
-    }
-
-    .logo {
-      margin-right: 0;
-      /* Remove margin right for logo on mobile */
-    }
-
-    header nav ul {
-      flex-direction: column;
-      /* Stack navigation items vertically on mobile */
-    }
-
-    header nav li {
-      margin-right: 0;
-      /* Remove margin right for navigation items on mobile */
-      margin-bottom: 10px;
-      /* Add margin bottom for navigation items on mobile */
-    }
-  }
-
-
-  .logo a {
-    text-decoration: none;
-    color: #034692;
-  }
-
-  .username {
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
-  }
-
-  input[type="text"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1 rem;
-    width: 150px;
-    margin-right: 10px;
-  }
-
-  .username button[type="button"] {
-    background-color: #034692;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .username button[type="button"]:hover {
-    background-color: #0267c4;
-  }
-
-  nav ul {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    margin-top: 10px;
-  }
-
-  nav li {
-    margin-right: 20px;
-  }
-
-  nav a {
-    font-size: 1.2rem;
-    color: #034692;
-    text-decoration: none;
-    transition: all 0.3s ease-in-out;
-  }
-
-  nav a:hover {
-    color: #0267c4;
-  }
-
-  .btnLogin-popup {
-    background-color: #034692;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .btnLogin-popup:hover {
-    background-color: #0267c4;
-  }
-
-  .container {
-    margin: 50px auto;
-    width: 80%;
-    height: calc(100vh - 100px);
-    padding: 20px;
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-  }
-
-  .post-container {
-    padding: 20px;
-  }
-
-  .post-container h1 {
-    margin-bottom: 20px;
-    text-align: center;
-    color: #034692;
-  }
-
-  .post-container textarea {
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    height: 200px;
-  }
-
-  .postButton {
-    display: block;
-    margin: 20px auto;
-    background-color: #034692;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .postButton:hover {
-    background-color: #0267c4;
-  }
-
-  .post-container button[type="button"] {
-    background-color: #034692;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .post-container button[type="button"]:hover {
-    background-color: #0267c4;
-  }
-
-  /* Comment styles */
-  .comment {
-    background-color: #ccc;
-    margin-top: 10px;
-    padding: 10px;
-    border-left: 2px solid #ccc;
-    border-radius: 5px;
-  }
-
-  .comment p {
-    margin: 5px 0;
-  }
-
-  .comment input[type="text"] {
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-  }
-
-  .comment button[type="button"] {
-    background-color: #034692;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .comment button[type="button"]:hover {
-    background-color: #0267c4;
-  }
-
-  footer {
-    background-color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 100px;
-    border-top: 1px solid #e0e0e0;
-    margin-top: auto;
-    width: 100%;
-  }
-
-  .footer-col {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .footer-col h4 {
-    font-size: 1.5rem;
-    color: #034692;
-    margin-bottom: 20px;
-  }
-
-  ul {
-    list-style: none;
-  }
-
-  ul li {
-    margin-bottom: 10px;
-  }
-
-  ul li a {
-    font-size: 1.2rem;
-    color: #666666;
-    text-decoration: none;
-    transition: all 0.3s ease-in-out;
-  }
-
-  ul li a:hover {
-    color: #0267c4;
-  }
-
-  .links a {
-    display: inline-block;
-    height: 44px;
-    width: 44px;
-    color: #ffffff;
-    background-color: #034692;
-    border-radius: 50%;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .links a:hover {
-    background-color: #0267c4;
-  }
-
-  @media only screen and (max-width: 768px) {
-    footer {
-      flex-direction: row;
-      flex-wrap: wrap;
-      padding: 10px 20px;
-      /* Reduce the padding of the footer */
-      max-height: 250px;
-      /* Set a maximum height for the footer */
-    }
-
-    .footer-col {
-      flex: 1;
-      /* Make each column equally wide */
-      margin: 5px;
-    }
-
-    .links {
-      justify-content: center;
-      /* Center social media links on mobile */
-    }
-
-    .links a {
-      margin: 5px;
-      /* Add margin between social media links on mobile */
-    }
-  }
-
-  .container {
-    overflow-y: auto;
-    /* Make the container scrollable */
-  }
-
-  .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 15px 10px;
-  }
-
-  .card {
-    background-color: #ffffff;
-    width: 23%;
-    /* 4 columns */
-    margin: 5px;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .card-header {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-
-  .card-body {
-    font-size: 1rem;
-  }
-
-  .card-body ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .card-body li {
-    margin-bottom: 10px;
-  }
-
-  .card-body a {
-    text-decoration: none;
-    color: #034692;
-  }
-
-  .card-body a:hover {
-    color: #0267c4;
-  }
-
-  @media only screen and (max-width: 768px) {
-    .card {
-      margin: 5px auto;
-      padding: 20px 10px;
-
-      width: 60%;
-
-    }
-
-    .card-container {
-      padding: 10px;
-
-    }
-  }
-</style>
-
-<body>
-  <header>
-    <div class="logo">
-      <a href="index.html">VoluntHero</a>
-    </div>
-    <div class="search" style="display: flex; align-items: center;">
-      <img src="https://cdn-icons-png.flaticon.com/512/54/54481.png" alt="Search Icon"
-        style="width: 20px; height: 20px; margin-right: 10px;" />
-      <input type="text" id="searchBar" onkeyup="searchFunction()" placeholder="Search" style="flex: 1; padding: 5px;">
-    </div>
-    <div class="dropdown">
-      <select>
-        <option value="" label="Click to select a city"">Pick A City</option>
-        <option value ="Sacramento" label="Sacramento">Sacramento</option>
-        <option value="Modesto" label="Modesto">Modesto</option>
-        <option value="Stockton" label="Stockton">Stockton</option>
-        <option value="Tracy" label="Tracy">Tracy</option>
-        <option value="Manteca" label="Manteca">Manteca</option>
-        <option value="Lodi" label="Lodi">Lodi</option>
-        <option value="Lathrop" label="Lathrop">Lathrop</option>
-        <option value="Ripon" label="Ripon">Ripon</option>
-        <option value="Escalon" label="Escalon">Escalon</option>
-      </select>
-    </div>
-  </header>
-  <div class="card-container">
-    <div class="card">
-      <div class="card-header">Wildlife Conservation Alliance</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name: </strong>Wildlife Conservation Alliance</li>
-          <li><strong>Position: </strong>Volunteer</li>
-          <li><strong>Location: </strong>1050 Brookside Rd Stockton, CA 95211 United States
-          </li>
-          <li><strong>Website:</strong> <a href="https://www.instagram.com/wildcaofficial/"> Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">City of Stockton Clean City Initiative</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name: </strong>City of Stockon</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 22 E Weber Ave. Room 301
-            Stockton, CA 95202
-            United States
-          </li>
-          <li><strong>Website:</strong> <a href="http://www.stocktonca.gov/cleancity">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Global English Alliance Teacher</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Global English Alliance </li>
-          <li><strong>Position:</strong> Online Teacher</li>
-          <li><strong>Location:</strong> 2325 Henri Lane
-            Lodi, CA 95242
-            United States
-          </li>
-          <li><strong>Website:</strong> <a href="http://www.globalenglishalliance.org/"> Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Lodi Public Library Volunteer
-      </div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Public Library
-
-          </li>
-          <li><strong>Position:</strong> Online Helper</li>
-          <li><strong>Location:</strong> 201 W. Locust Street Lodi, CA 95240 United States</li>
-          <li><strong>Website:</strong> <a href="http://www.lodi.gov/library/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Lodi Public Library Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Public Library</li>
-          <li><strong>Position:</strong> Adult Literacy Program</li>
-          <li><strong>Location:</strong> 201 W. Locust Street Lodi, CA 95240 United States
-
-          </li>
-          <li><strong>Website:</strong> <a href="http://www.lodi.gov/library/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Lodi Public Library Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Public Library</li>
-          <li><strong>Position:</strong> Tutor for Kids</li>
-          <li><strong>Location:</strong> 201 W. Locust Street Lodi, CA 95240 United States</li>
-          <li><strong>Website:</strong> <a href="http://www.lodi.gov/library/
-
-">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Tracy Earth Project
-      </div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Tracy</li>
-          <li><strong>Position:</strong> IT Assistant
-          </li>
-          <li><strong>Location:</strong> 355 Hollywood Ave Tracy, CA 95376 United States
-
-          </li>
-          <li><strong>Website:</strong> <a href="https://tracyearthproject.com/
-
-">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Bristol Hospice Volunteer
-      </div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Bristol Hospice
-          </li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 1101 Sylvan Avenue Modesto, CA 95350 United States
-
-          </li>
-          <li><strong>Website:</strong> <a href="http://www.bristolhospice-modesto.com
-">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Bristol Hospice Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Bristol Hospice</li>
-          <li><strong>Position:</strong> Caregiver Relief
-          </li>
-          <li><strong>Location:</strong> 1101 Sylvan Avenue Modesto, CA 95350 United States
-
-          </li>
-          <li><strong>Website:</strong> <a href="http://www.bristolhospice-modesto.com">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Bristol Hospice Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Bristol Hospice</li>
-          <li><strong>Position:</strong> Companion</li>
-          <li><strong>Location:</strong> 1101 Sylvan Avenue Modesto, CA 95350 United States
-          </li>
-          <li><strong>Website:</strong> <a href="http://www.bristolhospice-modesto.com">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Gentiva Hospice Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Gentiva Hospice</li>
-          <li><strong>Position:</strong> Student Volunteer</li>
-          <li><strong>Location:</strong> 3001 Coffee Rd Modesto, CA 95355 United States
-          </li>
-          <li><strong>Website:</strong> <a href="http://www.gentivahs.com">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Gentiva Hospice Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Gentiva Hospice</li>
-          <li><strong>Position:</strong> Administration</li>
-          <li><strong>Location:</strong> 3001 Coffee Rd Modesto, CA 95355 United States
-          </li>
-          <li><strong>Website:</strong> <a href="http://www.gentivahs.com">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Gentiva Hospice Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Gentiva Hospice</li>
-          <li><strong>Position:</strong> Hospice Volunteers
-
-          </li>
-          <li><strong>Location:</strong> 3001 Coffee Rd Modesto, CA 95355 United States
-          </li>
-          <li><strong>Website:</strong> <a href="http://www.gentivahs.com">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Gentiva Hospice Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Gentiva Hospice</li>
-          <li><strong>Position:</strong> Caregiver Relief
-
-          </li>
-          <li><strong>Location:</strong> 3001 Coffee Rd Modesto, CA 95355 United States
-          </li>
-          <li><strong>Website:</strong> <a href="http://www.gentivahs.com">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Reach Out & Read San Joaquin</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Reach Out & Read Program</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 605 N. El Dorado St Stockton, CA 95202 United States
-          </li>
-          <li><strong>Website:</strong> <a href="https://www.ssjcpl.org/locations/stockton/chavez.html">Click Here</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Court Appointed Advocates of Stanislaus County</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> CASA</li>
-          <li><strong>Position:</strong> Volunteer Advocate
-
-          </li>
-          <li><strong>Location:</strong> 801 11th Street Modesto, CA 95354 United States
-          </li>
-          <li><strong>Website:</strong> <a href="http://www.casaofstanco.org 
-">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Global Hospice and Palliative Care
-      </div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Global Hospice Volunteer</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 1200 G St Suite B Modesto, CA 95354 United States
-          </li>
-          <li><strong>Website:</strong> <a href="https://www.globalhospiceandpalliativecare.com/ ">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Global Hospice and Palliative Care
-      </div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Global Hospice Volunteer</li>
-          <li><strong>Position:</strong> Office Volunteer</li>
-          <li><strong>Location:</strong> 1200 G St Suite B Modesto, CA 95354 United States
-          </li>
-          <li><strong>Website:</strong> <a href="https://www.globalhospiceandpalliativecare.com/ ">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">American Red Cross Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> American Red Cross Stanislaus County</li>
-          <li><strong>Position:</strong> Blood Transportation Driver</li>
-          <li><strong>Location:</strong> 1230 6 Street Modesto, CA 95354 United States</li>
-          <li><strong>Website:</strong> <a href="http://www.redcross.org/centralcoast">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">American Red Cross Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> American Red Cross Stanislaus County</li>
-          <li><strong>Position:</strong> Blood Serivce Volunteer</li>
-          <li><strong>Location:</strong> 1230 6 Street Modesto, CA 95354 United States</li>
-          <li><strong>Website:</strong> <a href="http://www.redcross.org/centralcoast">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">American Red Cross Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> </li>
-          <li><strong>Position:</strong> Help and Neighbour</li>
-          <li><strong>Location:</strong> 1230 6 Street Modesto, CA 95354 United States</li>
-          <li><strong>Website:</strong> <a href="http://www.redcross.org/centralcoast">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">American Red Cross Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> American Red Cross Stanislaus County</li>
-          <li><strong>Position:</strong> Fire Disaster Relief</li>
-          <li><strong>Location:</strong> 1230 6 Street Modesto, CA 95354 United States</li>
-          <li><strong>Website:</strong> <a href="http://www.redcross.org/centralcoast">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">American Red Cross Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> American Red Cross Stanislaus County</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 1230 6 Street Modesto, CA 95354 United States</li>
-          <li><strong>Website:</strong> <a href="http://www.redcross.org/centralcoast">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">American Red Cross Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> American Red Cross Stanislaus County</li>
-          <li><strong>Position:</strong> Volunteer from Home</li>
-          <li><strong>Location:</strong> 1230 6 Street Modesto, CA 95354 United States</li>
-          <li><strong>Website:</strong> <a href="http://www.redcross.org/centralcoast">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">The Shire Community Space
-      </div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Shire Community Volunteer</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 1214 H Street Modesto, CA 95354 United States
-
-          </li>
-          <li><strong>Website:</strong> <a
-              href="https://www.idealist.org/en/nonprofit/24f296191cfc404681b20345990b06c3-the-shire-community-space-modesto">Click
-              Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Merced LGBTQ Alliance
-
-      </div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> LGBTQ Alliance</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> PO BOX 2104 MERCED, CA 95344 United States
-
-          </li>
-          <li><strong>Website:</strong> <a href="https://www.lgbtqmerced.org/about/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">FCL Educational Fund</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Friends Committee on Legislation of California</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 1225 8TH STREET SACRAMENTO, CA 95814 United States</li>
-          <li><strong>Website:</strong> <a href="http://www.fclca.org">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Blossom Ridge Hospice Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Blossom Ridge Hospice</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 520 9th Street Suite 240 Sacramento, CA 95814 United States</li>
-          <li><strong>Website:</strong> <a href="http://www.blossomridge.net ">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Blossom Ridge Hospice Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Blossom Ridge Hospice</li>
-          <li><strong>Position:</strong> Patient Support</li>
-          <li><strong>Location:</strong> 520 9th Street Suite 240 Sacramento, CA 95814 United States</li>
-          <li><strong>Website:</strong> <a href="http://www.blossomridge.net ">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Blossom Ridge Hospice Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Blossom Ridge Hospice</li>
-          <li><strong>Position:</strong> Office Support</li>
-          <li><strong>Location:</strong> 520 9th Street Suite 240 Sacramento, CA 95814 United States</li>
-          <li><strong>Website:</strong> <a href="http://www.blossomridge.net ">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Blossom Ridge Hospice Volunteer</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Blossom Ridge Hospice</li>
-          <li><strong>Position:</strong> Office Volunteer</li>
-          <li><strong>Location:</strong> 520 9th Street Suite 240 Sacramento, CA 95814 United States</li>
-          <li><strong>Website:</strong> <a href="http://www.blossomridge.net ">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Sacramento Chinese Community Service Center</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Chinese Community Center Volunteer</li>
-          <li><strong>Position:</strong> Tutor</li>
-          <li><strong>Location:</strong> 420 I Street, Suite 5 Sacramento, CA 95814 United States</li>
-          <li><strong>Website:</strong> <a href="https://sccsc.org/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">California Volunteers</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> California Volunteers</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 1400 10th Street Sacramento, CA 95814 United States</li>
-          <li><strong>Website:</strong> <a href="https://www.californiavolunteers.ca.gov/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Emergency Food Bank Stockton</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Stockton Food Bank Volunteer</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 7 W. Scotts Avenue
-            Stockton, CA 95203</li>
-          <li><strong>Website:</strong> <a href="https://www.stocktonfoodbank.org/Get-Involved/Volunteer">Click Here</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Crisis Text Line</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Crisis Text Line</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> All Across The United States Nationwide, CA 90011
-          </li>
-          <li><strong>Website:</strong> <a href="https://www.crisistextline.org/become-a-volunteer/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">California Volunteers</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> California Volunteers</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> All Across The United States Nationwide, CA 90011</li>
-          <li><strong>Website:</strong> <a href="https://www.californiavolunteers.ca.gov/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Sonder Hospice Care</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Sonder Hospice Volunteer</li>
-          <li><strong>Position:</strong> Helping Hand</li>
-          <li><strong>Location:</strong> 248 West Fremont Street Sacramento, CA 95203
-          </li>
-          <li><strong>Website:</strong> <a href="https://sonderhealthcare.com/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Direct Hospice Care</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Direct Hospice Care</li>
-          <li><strong>Position:</strong> Senior Helper</li>
-          <li><strong>Location:</strong> 11700 Dublin Blvd Ste. 100, Dublin, CA 94568, US</li>
-          <li><strong>Website:</strong> <a href="http://www.directhospicecare.net/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Sentinels</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Sentinels Volunteer</li>
-          <li><strong>Position:</strong> Patrol</li>
-          <li><strong>Location:</strong> 22 E. Weber Ave.
-            Stockton, CA 95202</li>
-          <li><strong>Website:</strong> <a
-              href="https://www.stocktonca.gov/services/police_department/programs___services/sentinels.php ">Click
-              Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Haven of Peace Women's Emergency Home</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Haven of Peace</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 7070 S Harlan Rd French Camp, CA 95231
-          </li>
-          <li><strong>Website:</strong> <a
-              href="https://www.yelp.com/biz/haven-of-peace-womens-emergency-home-french-camp?osq=Volunteer+Opportunities&override_cta=Request+information">Click
-              Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Police Reserve Officers</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Police Reserve Officers</li>
-          <li><strong>Position:</strong> Reserve Officer</li>
-          <li><strong>Location:</strong> 22 E. Weber Ave.
-            Stockton, CA 95202</li>
-          <li><strong>Website:</strong> <a
-              href="https://www.stocktonca.gov/services/police_department/programs___services/police_reserve_officers.php ">Click
-              Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Harvest Home Animal Sanctuary</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Animal Sanctuary</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 14741 S Wing Levee Rd, Stockton, CA 95206</li>
-          <li><strong>Website:</strong> <a href="https://harvesthomesanctuary.org/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Good Samaritan Community Thrift</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Good Samaritan Community Thrift</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 7939 W 11th St Tracy, CA 95304</li>
-          <li><strong>Website:</strong> <a href="https://www.facebook.com/goodsamaritancommunitythrift/">Click Here</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Pets & Pals Animal Shelter</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Animal Shelter</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 12488 S Harlan Rd Lathrop, CA 95330
-          </li>
-          <li><strong>Website:</strong> <a href="https://petsnpals.org/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Orphan Kitten Rescue</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Kitten Rescue</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 1322 Daniels St Manteca, CA 95337
-          </li>
-          <li><strong>Website:</strong> <a href="https://www.facebook.com/orphankittenrescue.info/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Friends Outside</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Friends Outside</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 7272 Murray Dr Stockton, CA 95210</li>
-          <li><strong>Website:</strong> <a href="https://www.friendsoutside.org/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Zion Lutheran Church-Food Bank</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Food Bank</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 808 Porter Ave Stockton, CA 95207
-          </li>
-          <li><strong>Website:</strong> <a href="https://www.zionlutheranstockton.org/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">The Family Giving Tree</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> The Family Giving Tree</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 606 Valley Way Milpitas, CA 95035
-          </li>
-          <li><strong>Website:</strong> <a href="https://www.familygivingtree.org">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Stockton Art League Goodwin Gallery</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Goodwin Gallery</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 1902 Pacific Ave Stockton, CA 95204
-          </li>
-          <li><strong>Website:</strong> <a href="https://www.stocktonartleague.org">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Union Gospel Mission</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Union Gospel</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 400 Bannon St Sacramento, CA 95811
-          </li>
-          <li><strong>Website:</strong> <a href="https://www.ugmsac.com">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Finding A Best Friend Rescue</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Finding A Best Friend Rescue</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> See Website</li>
-          <li><strong>Website:</strong> <a href="https://www.findingabestfriend.org">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">VITAS Healthcare</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> VITAS Healthcare</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 16956 S Harlan Rd Ste 2f Lathrop, CA 95330</li>
-          <li><strong>Website:</strong> <a
-              href="https://www.vitas.com/locations-search/east-bay/?utm_source=yelp&utm_medium=locallisting&utm_content=SAT9101">Click
-              Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Animal Rescue of Tracy</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Animal Rescue</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 3200 N Naglee Rd Ste 452 Tracy, CA 95304</li>
-          <li><strong>Website:</strong> <a href="https://www.animalrescuetracy.org">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Coyote Crossing Ranch</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Coyote Crossing Ranch</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 3725 Willow Wy Discovery Bay, CA 94505</li>
-          <li><strong>Website:</strong> <a href="https://www.coyotecrossingrescue.com">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Assistance League Of Stockton</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Assistance League Of Stockton</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 1323 E Harding Way Stockton, CA 95205</li>
-          <li><strong>Website:</strong> <a href="https://www.stockton.assistanceleague.org">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">The One-Eighty</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> The One-Eighty</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 17 W Lockeford St Lodi, CA 95240</li>
-          <li><strong>Website:</strong> <a href="https://www.180lodi.org">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Chest of Hope</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Chest of Hope</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 68 E 11th St #106 Tracy, CA 95376 United States</li>
-          <li><strong>Website:</strong> <a href="https://chestofhope.org/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Grand Theatre Center for the Arts</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Name:</strong> Grand Theatre Center for the Arts</li>
-          <li><strong>Position:</strong> Volunteer</li>
-          <li><strong>Location:</strong> 715 Central Ave. Tracy, CA 95376 United States
-    </li>
-          <li><strong>Website:</strong> <a href="https://atthegrand.org/">Click Here</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Tracy Interfaith Ministries</div>
-    <div class="card-body">
-      <ul>
-        <li><strong>Name:</strong> Tracy Interfaith Ministries</li>
-        <li><strong>Position:</strong> Volunteer</li>
-        <li><strong>Location:</strong> 715 Central Ave. Tracy, CA 95376 United States
-    </li>
-        <li><strong>Website:</strong> <a href="https://tracyinterfaith.org/how-to-help/volunteering/ ">Click Here</a></li>
-      </ul>
-    </div>
-    </div>
-      <div class="card">
-        <div class="card-header">The Coalition</div>
-      <div class="card-body">
-        <ul>
-        <li><strong>Name:</strong> The Coalition</li>
-        <li><strong>Position:</strong> Volunteer</li>
-        <li><strong>Location:</strong> 26 W Emerson Ave, Tracy, CA 95376
-    </li>
-        <li><strong>Website:</strong> <a href="https://tracyhomeless.com/volunteer-interests/ ">Click Here</a></li>
-      </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header">CAMPRS</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> CAMPRS</li>
-      <li><strong>Position:</strong> Volunteer</li>
-      <li><strong>Location:</strong> 1001 W Center St, Manteca, CA 95337
-    </li>
-      <li><strong>Website:</strong> <a href="https://www.manteca.gov/departments/recreation-community-services/camprs-volunteer-program">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header">CAMPRS</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> CAMPRS</li>
-      <li><strong>Position:</strong> Kids Sports Assistant</li>
-      <li><strong>Location:</strong> 1001 W Center St, Manteca, CA 95337
-    </li>
-      <li><strong>Website:</strong> <a href="https://www.manteca.gov/departments/recreation-community-services/camprs-volunteer-program">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header">CAMPRS</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> CAMPRS</li>
-      <li><strong>Position:</strong> Kids Zone Assistant</li>
-      <li><strong>Location:</strong> 1001 W Center St, Manteca, CA 95337
-    </li>
-      <li><strong>Website:</strong> <a href="https://www.manteca.gov/departments/recreation-community-services/camprs-volunteer-program">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Escalon Volunteer Patrol</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> Escalon Volunteer Patrol</li>
-      <li><strong>Position:</strong> Volunteer</li>
-      <li><strong>Location:</strong> 2040 McHenry Ave Escalon,CA95320</li>
-      <li><strong>Website:</strong> <a href="https://www.cityofescalon.org/government/departments/development_services/community_programs2/Divisions/volunteers">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header"> Escalon Volunteer Patrol</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> Escalon Volunteer Patrol</li>
-      <li><strong>Position:</strong> Volunteer Officer</li>
-      <li><strong>Location:</strong> 2040 McHenry Ave Escalon,CA95320</li>
-      <li><strong>Website:</strong> <a href="https://www.cityofescalon.org/government/departments/development_services/community_programs2/Divisions/volunteers">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header"> Weekly Supplemental Food</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> Volunteer</li>
-      <li><strong>Position:</strong> Volunteer Officer</li>
-      <li><strong>Location:</strong> 1601 2nd Street Escalon, CA  95320</li>
-      <li><strong>Website:</strong> <a href="https://escaloncare.org/">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header"> Senior Brown Bag</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> Senior Brown Bag</li>
-      <li><strong>Position:</strong> Volunteer</li>
-      <li><strong>Location:</strong> 1601 2nd Street Escalon, CA  95320</li>
-      <li><strong>Website:</strong> <a href="https://escaloncare.org/">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header"> Color The Skies</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> Color The Skies</li>
-      <li><strong>Position:</strong> Volunteer</li>
-      <li><strong>Location:</strong> PO Box 1135 Ripon, CA 95366 United States</li>
-      <li><strong>Website:</strong> <a href="https://escaloncare.org/">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header"> Reserve & Volunteer Program</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> Reserve & Volunteer Program</li>
-      <li><strong>Position:</strong> Reserve Firefighter</li>
-      <li><strong>Location:</strong> 1749 Coley Avenue
-      Escalon, CA 95320</li>
-      <li><strong>Website:</strong> <a href="https://www.escalonfire.com/featured-project ">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header"> Garden Joy</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> Garden Joy</li>
-      <li><strong>Position:</strong> Gardener</li>
-      <li><strong>Location:</strong> PO BOX 971 RIPON, CA 95366 United States</li>
-      <li><strong>Website:</strong> <a href="https://www.gardenjoyca.com/">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header"> VITAS Healthcare</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> VITAS Healthcare</li>
-      <li><strong>Position:</strong> Volunteer</li>
-      <li><strong>Location:</strong> 16956 Harlan Road, Suite 2F Lathrop, CA 95330 United States</li>
-      <li><strong>Website:</strong> <a href="https://www.vitas.com/locations-search/east-bay/lathrop-hospice-office">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header"> VITAS Healthcare</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> VITAS Healthcare</li>
-      <li><strong>Position:</strong> Volunteer</li>
-      <li><strong>Location:</strong> 16956 Harlan Road, Suite 2F Lathrop, CA 95330 United States</li>
-      <li><strong>Website:</strong> <a href="https://www.vitas.com/locations-search/east-bay/lathrop-hospice-office">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header"> River Islands Academies Volunteer Program</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> River Islands Academies Volunteer Program</li>
-      <li><strong>Position:</strong> Volunteer</li>
-      <li><strong>Location:</strong> 18001 Commercial Street Lathrop, CA 95330</li>
-      <li><strong>Website:</strong> <a href="https://www.riacademies.net/VolunteerProgram_2021122165934388_202112217459892.aspx">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header"> Project Alley Cat</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> Project Alley Cat</li>
-      <li><strong>Position:</strong> Volunteer</li>
-      <li><strong>Location:</strong> Suite 452, 3200 Naglee Road Tracy</li>
-      <li><strong>Website:</strong> <a href="https://projectalleycat.org/about-us">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header"> River Islands Academies Volunteer Program</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> River Islands Academies Volunteer Program</li>
-      <li><strong>Position:</strong> Teacher Assistant</li>
-      <li><strong>Location:</strong> 18001 Commercial Street Lathrop, CA 95330</li>
-      <li><strong>Website:</strong> <a href="https://www.riacademies.net/VolunteerProgram_2021122165934388_202112217459892.aspx">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-      <div class="card">
-        <div class="card-header"> River Islands Academies Volunteer Program</div>
-      <div class="card-body">
-        <ul>
-        <li><strong>Name:</strong> River Islands Academies Volunteer Program</li>
-        <li><strong>Position:</strong> Tutor</li>
-        <li><strong>Location:</strong> 18001 Commercial Street Lathrop, CA 95330</li>
-        <li><strong>Website:</strong> <a href="https://www.riacademies.net/VolunteerProgram_2021122165934388_202112217459892.aspx">Click Here</a></li>
-      </ul>
-      </div>
-      </div>
-      <div class="card">
-        <div class="card-header"> Animal Control Volunteer Ripon</div>
-      <div class="card-body">
-        <ul>
-        <li><strong>Name:</strong> Animal Control Volunteer Ripon</li>
-        <li><strong>Position:</strong> Volunteer</li>
-        <li><strong>Location:</strong> 444 Doak Boulevard Ripon, CA 95366</li>
-        <li><strong>Website:</strong> <a href="https://www.cityofripon.org/225/Animal-Services ">Click Here</a></li>
-      </ul>
-      </div>
-      </div>
-      <div class="card">
-        <div class="card-header"> Police Service Volunteer in Ripon</div>
-      <div class="card-body">
-        <ul>
-        <li><strong>Name:</strong> Police Service Volunteer in Ripon</li>
-        <li><strong>Position:</strong> Volunteer</li>
-        <li><strong>Location:</strong> 259 N Wilma Ave, Ripon, CA 95366</li>
-        <li><strong>Website:</strong> <a href="https://www.cityofripon.org/253/Volunteers-in-Police-Service">Click Here</a></li>
-      </ul>
-      </div>
-      </div>
-      <div class="card">
-        <div class="card-header"> Bethany Hospice in Ripon</div>
-      <div class="card-body">
-        <ul>
-        <li><strong>Name:</strong> Bethany Hospice in Ripon</li>
-        <li><strong>Position:</strong> Hospice Volunteer</li>
-        <li><strong>Location:</strong> 930 W Main Street, Ripon</li>
-        <li><strong>Website:</strong> <a href="https://bethanyripon.org/volunteer">Click Here</a></li>
-      </ul>
-      </div>
-      </div>
-      <div class="card">
-        <div class="card-header"> Love ❤️ Ripon</div>
-      <div class="card-body">
-        <ul>
-        <li><strong>Name:</strong> Love ❤️ Ripon</li>
-        <li><strong>Position:</strong> Volunteer</li>
-        <li><strong>Location:</strong> Online</li>
-        <li><strong>Website:</strong> <a href="https://loveripon.com/">Click Here</a></li>
-      </ul>
-      </div>
-      </div>
-      <div class="card">
-        <div class="card-header"> Stockton-San Joaquin County Public Library</div>
-      <div class="card-body">
-        <ul>
-        <li><strong>Name:</strong> Stockton-San Joaquin County Public Library</li>
-        <li><strong>Position:</strong> Tutor</li>
-        <li><strong>Location:</strong> Libraries across the SJ County</li>
-        <li><strong>Website:</strong> <a href="https://www.ssjcpl.org/involved/volunteer.html">Click Here</a></li>
-      </ul>
-      </div>
-      </div>
-    <div class="card">
-      <div class="card-header"> Give Every Child a Chance</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> Give Every Child a Chance</li>
-      <li><strong>Position:</strong> Volunteer</li>
-      <li><strong>Location:</strong> Schools across Lathrop</li>
-      <li><strong>Website:</strong> <a href="https://gecac.net/volunteer-2/">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header"> Stockton Action Volunteers for the Environment</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> Stockton Action Volunteers for the Environment</li>
-      <li><strong>Position:</strong> Volunteer</li>
-      <li><strong>Location:</strong> Various Locations in Stockton</li>
-      <li><strong>Website:</strong> <a href="https://stockton.campuslabs.com/engage/organization/save">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    <div class="card">
-      <div class="card-header"> Manteca Youth Focus</div>
-    <div class="card-body">
-      <ul>
-      <li><strong>Name:</strong> Manteca Youth Focus</li>
-      <li><strong>Position:</strong> Volunteer</li>
-      <li><strong>Location:</strong> Various Locations in Manteca</li>
-      <li><strong>Website:</strong> <a href="https://mantecayouthfocus.org/">Click Here</a></li>
-    </ul>
-    </div>
-    </div>
-    
-
-    <footer>
-      <div class="footer-col">
-        <h4>Creators</h4>
-        <ul>
-          <li><a href="https://www.linkedin.com/in/itsmichaellin/">Michael Lin</a></li>
-          <li><a href="https://www.linkedin.com/in/sehaj-gill-b88770329/">Sehaj Gill</a></li>
-          <li><a
-              href="https://www.linkedin.com/in/samarth-gill-33a9a82b3/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app">Samarth
-              Gill</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Socials</h4>
-        <ul>
-
-          <li><a href="https://www.stocktonusd.net/SECA">SECA Site</a></li>
-          <li><a href="mailto:voluntherocontact@gmail.com">Contact</a></li>
-          <li><a href="https://linktr.ee/sehajg">Link Tree</a></li>
-        </ul>
-      </div>
-    </footer>
 </body>
 
 </html>
