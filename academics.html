@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Academic Opportunities - VoluntHero</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" type="image/x-icon" />
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f3f4f6;
+      color: #1f2937;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background-color: #ffffff;
+      padding: 10px 100px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: 500px;
+    }
+
+    .logo a {
+      display: inline-block;
+      line-height: 0;
+      width: auto;
+      height: auto;
+    }
+
+    .logo img {
+      height: 300px;
+      width: auto;
+    }
+
+    /* Main Content */
+    .page-title {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      color: white;
+    }
+
+    .page-title h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .page-title p {
+      font-size: 1.1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Cards Grid */
+    .opportunities-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .opportunity-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .opportunity-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-content h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+      color: #2563eb;
+    }
+
+    .card-content p {
+      margin-bottom: 15px;
+      color: #4b5563;
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+
+    .tag {
+      background: #e5e7eb;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      color: #4b5563;
+    }
+
+    .card-link {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #2563eb;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      text-align: center;
+      transition: background-color 0.3s ease;
+      font-weight: 500;
+    }
+
+    .card-link:hover {
+      background-color: #1e40af;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #1f2937;
+      color: #ffffff;
+      padding: 60px 100px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      justify-content: center;
+      align-items: start;
+      margin-top: auto;
+    }
+
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-col h4 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      text-decoration: none;
+      color: #d1d5db;
+      transition: color 0.3s ease;
+    }
+
+    .footer-col ul li a:hover {
+      color: #2563eb;
+    }
+
+    .footer-col .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .footer-col .social-icons a {
+      color: #d1d5db;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-col .social-icons a:hover {
+      color: #2563eb;
+    }
+
+    .footer-col .newsletter {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .footer-col .newsletter input {
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 5px;
+      background-color: transparent;
+      color: #ffffff;
+      width: 70%;
+      max-width: 70%;
+    }
+
+    .footer-col .newsletter button {
+      padding: 10px 20px;
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 70%;
+      max-width: 70%;
+    }
+
+    .footer-col .newsletter button:hover {
+      background-color: #1e40af;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        padding: 10px 20px;
+      }
+
+      .opportunities-grid {
+        padding: 20px;
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        padding: 40px 20px;
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card-image {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      background-color: #f8fafc; /* Light background for better contrast */
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <a href="index.html">
+        <img src="images/logo.PNG" alt="VoluntHero" />
+      </a>
+      <div class="logo-text">
+        <a href="index.html"></a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-title">
+      <h1>Academic Opportunities</h1>
+      <p>Discover free educational resources and programs available in Stockton and online to help you achieve your academic goals.</p>
+    </section>
+
+    <section class="opportunities-grid">
+      <!-- Khan Academy Card -->
+      <div class="opportunity-card">
+        <img src="https://cdn.discordapp.com/attachments/1331644161996361728/1337866809063506001/image.png?ex=67a9010f&is=67a7af8f&hm=c80a7707bd174b68d39135a3f18ff354c2edb20a09ab21b0fcfc97f98ae01b67&">
+        <div class="card-content">
+          <h3>Khan Academy</h3>
+          <div class="card-tags">
+            <span class="tag">Online</span>
+            <span class="tag">All Subjects</span>
+          </div>
+          <p>Access comprehensive, free education in math, science, computing, history, art history, economics, and more. Perfect for both school curriculum support and SAT/AP preparation.</p>
+          <a href="https://www.khanacademy.org" class="card-link">Start Learning</a>
+        </div>
+      </div>
+
+      <!-- Delta College Learning Center Card -->
+      <div class="opportunity-card">
+        <img src="data:image/png;base64,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" alt="Delta College Tutoring" class="card-image">
+        <div class="card-content">
+          <h3>Delta College Learning Center</h3>
+          <div class="card-tags">
+            <span class="tag">In-Person</span>
+            <span class="tag">College Prep</span>
+          </div>
+          <p>Access free tutoring services and academic support at San Joaquin Delta College. Open to high school students for college preparation and academic enrichment.</p>
+          <a href="https://www.deltacollege.edu/academics/tutoring" class="card-link">Visit Center</a>
+        </div>
+      </div>
+
+
+      <!-- YMCA Academic Support Card -->
+      <div class="opportunity-card">
+        <img src="https://www.volunteermatch.org/images/gallery/4F29DCAE-48CC-745E-ABB8-6CB004A48BD1?ts=1378244248000" alt="YMCA Programs" class="card-image">
+        <div class="card-content">
+          <h3>YMCA Academic Support</h3>
+          <div class="card-tags">
+            <span class="tag">In-Person</span>
+            <span class="tag">After School</span>
+          </div>
+          <p>Access free after-school academic support, tutoring, and enrichment programs at Stockton YMCA locations. Available for students grades K-12.</p>
+          <a href="https://www.ymcasjc.org" class="card-link">Join Program</a>
+        </div>
+      </div>
+      <!-- LinkedIn Learning Card -->
+          <div class="opportunity-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/LinkedIn_Logo.svg/2560px-LinkedIn_Logo.svg.png" alt="LinkedIn Learning" class="card-image">
+            <div class="card-content">
+              <h3>LinkedIn Learning</h3>
+              <div class="card-tags">
+                <span class="tag">Online</span>
+                <span class="tag">Professional Skills</span>
+              </div>
+              <p>Access over 16,000 expert-level video tutorials covering programming, business skills, creative pursuits, and more. Perfect for professional development and skill mastery.</p>
+              <a href="https://www.linkedin.com/learning-login" class="card-link">Start Learning</a>
+            </div>
+          </div>
+
+          <!-- Universal Class Card -->
+          <div class="opportunity-card">
+            <img src="https://www.neuselibrary.org/wp-content/uploads/2019/09/UniversalClassCanvas-e1576447239690.png" alt="Universal Class" class="card-image">
+            <div class="card-content">
+              <h3>UniversalClass</h3>
+              <div class="card-tags">
+                <span class="tag">Online</span>
+                <span class="tag">CEU Credits</span>
+              </div>
+              <p>Explore over 600 online courses with CEU credits. Topics range from computer training and finance to pet care and arts & crafts.</p>
+              <a href="https://universalclass.com" class="card-link">Browse Courses</a>
+            </div>
+          </div>
+
+          <!-- Mango Languages Card -->
+          <div class="opportunity-card">
+            <img src="https://www.librarieshawaii.org/wp-content/uploads/2016/07/Mango-Languages-new-logo.jpg" alt="Mango Languages" class="card-image">
+            <div class="card-content">
+              <h3>Mango Languages</h3>
+              <div class="card-tags">
+                <span class="tag">Online</span>
+                <span class="tag">Language Learning</span>
+              </div>
+              <p>Learn from over 70 language courses, including ESL learning in 21 different languages. Free access with your library card.</p>
+              <a href="https://learn.mangolanguages.com" class="card-link">Learn Languages</a>
+            </div>
+          </div>
+
+          <!-- Craftsy Card -->
+          <div class="opportunity-card">
+            <img src="data:image/png;base64,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" alt="Craftsy" class="card-image">
+            <div class="card-content">
+              <h3>Craftsy</h3>
+              <div class="card-tags">
+                <span class="tag">Online</span>
+                <span class="tag">Creative Skills</span>
+              </div>
+              <p>Access video instruction for crafts, baking, drawing, gardening, and photography through Libby Extras. Free with your library card.</p>
+              <a href="https://www.craftsy.com" class="card-link">Start Creating</a>
+            </div>
+          </div>
+
+          <!-- Coursera Card -->
+          <div class="opportunity-card">
+            <img src="data:image/png;base64,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" alt="Coursera" class="card-image">
+            <div class="card-content">
+              <h3>Coursera</h3>
+              <div class="card-tags">
+                <span class="tag">Online</span>
+                <span class="tag">Certifications</span>
+              </div>
+              <p>Access 5,000+ courses from top universities and companies. Available free through the California State Library until September 14, 2024.</p>
+              <a href="https://www.coursera.org" class="card-link">Enroll Now</a>
+            </div>
+          </div>
+
+          <!-- Tutor.com Card -->
+          <div class="opportunity-card">
+            <img src="https://pbs.twimg.com/card_img/1884793544843677697/cPKfPFI-?format=jpg&name=medium" alt="Tutor.com" class="card-image">
+            <div class="card-content">
+              <h3>Tutor.com</h3>
+              <div class="card-tags">
+                <span class="tag">Online</span>
+                <span class="tag">Live Tutoring</span>
+              </div>
+              <p>Get one-on-one help from expert tutors daily (10 AM - 11 PM PST). Subjects include math, writing, and career prep. 24/7 access to resources.</p>
+              <a href="https://www.tutor.com" class="card-link">Get Help</a>
+            </div>
+          </div>
+
+          <!-- Learning Express Card -->
+          <div class="opportunity-card">
+            <img src="https://www.learningexpresshub.com/Image%20Library/InstitutionLogos_V4/logo_ebsco_learningexpress.png" alt="Learning Express" class="card-image">
+            <div class="card-content">
+              <h3>Learning Express</h3>
+              <div class="card-tags">
+                <span class="tag">Online</span>
+                <span class="tag">Test Prep</span>
+              </div>
+              <p>Access practice tests, skill-building courses, and career resources. Includes resume writing and interview preparation materials.</p>
+              <a href="https://www.learningexpresshub.com" class="card-link">Start Practicing</a>
+            </div>
+          </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-col">
+      <h4>Creators</h4>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/itsmichaellin/">Michael Lin</a></li>
+        <li><a href="https://www.linkedin.com/in/sehaj-gill-b88770329/">Sehaj Gill</a></li>
+        <li><a href="https://www.linkedin.com/in/samarth-gill-33a9a82b3/">Samarth Gill</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Socials</h4>
+      <div class="social-icons">
+        <a href="mailto:voluntherocontact@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://linktr.ee/sehajg"><i class="fas fa-link"></i></a>
+        <a href="https://www.instagram.com/volunt.hero/"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Newsletter</h4>
+      <div class="newsletter">
+        <input type="email" placeholder="Enter your email" />
+        <button>Subscribe</button>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
