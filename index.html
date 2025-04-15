@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- Previous head content remains the same until the style tag -->
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VoluntHero</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" type="image/x-icon" />
+  <link rel="icon"
+    href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
+    type="image/x-icon" />
   <style>
     /* Previous styles remain the same until the hero section */
     * {
@@ -77,7 +80,7 @@
     }
 
     .hero {
-      background: linear-gradient(135deg, #2563eb, #1e40af);      
+      background: linear-gradient(135deg, #2563eb, #1e40af);
       color: #ffffff;
       padding: 100px 20px;
       text-align: center;
@@ -108,18 +111,22 @@
     }
 
     .hero-button {
-      background-color: #ffffff;
-      color: #2563eb;
-      border: none;
-      padding: 15px 30px;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      width: 250px;
+        background-color: #ffffff;
+        color: #2563eb;
+        border: none;
+        padding: 15px 20px;
+        border-radius: 8px;
+        font-size: 1.05rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 250px;
+        max-width: 100%;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
-
     .hero-button:hover {
       background-color: #f0f4ff;
       transform: translateY(-2px);
@@ -224,7 +231,9 @@
 
     /* Responsive Design */
     @media (max-width: 768px) {
-      header, footer {
+
+      header,
+      footer {
         padding: 20px;
       }
 
@@ -243,11 +252,12 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <div class="logo">
       <a href="index.html">
-        <img src="logo.PNG" alt="VoluntHero" />
+        <img src="images/logo.PNG" alt="VoluntHero" />
       </a>
       <div class="logo-text">
         <a href="index.html"></a>
@@ -258,11 +268,20 @@
   <main>
     <section class="hero">
       <h1>Welcome to VoluntHero</h1>
-      <p>VoluntHero enables our youth to impact our community through safe, inclusive, and meaningful volunteering opportunities.</p>
+      <p>VoluntHero enables our youth to impact our community through safe, inclusive, and meaningful volunteering
+        opportunities.</p>
       <div class="button-container">
-        <a href="forum.html"><button class="hero-button">Volunteering Opportunities</button></a>
-        <a href="academics.html"><button class="hero-button">Academic Opportunities</button></a>
+        <a href="forum.html">
+          <button class="hero-button">Volunteering Opportunities</button>
+        </a>
+        <a href="academics.html">
+          <button class="hero-button">Academic Opportunities</button>
+        </a>
+        <a href="premed.html">
+          <button class="hero-button">Pre-Med Opportunities</button>
+        </a>
       </div>
+
     </section>
   </main>
 
@@ -292,4 +311,5 @@
     </div>
   </footer>
 </body>
+
 </html>
