@@ -4,17 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VoluntHero - Forum</title>
+  <title>Premed Opportunities - VoluntHero</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <link rel="icon"
-    href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
-    type="image/x-icon" />
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" type="image/x-icon" />
   <style>
-    /* FIXED: Card container color inconsistency and search bar responsiveness */
-    /* Additional styles cleaned and corrected */
-
-    /* Global Styles */
     * {
       margin: 0;
       padding: 0;
@@ -23,7 +17,7 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #ffffff;
+      background-color: #f3f4f6;
       color: #1f2937;
       display: flex;
       flex-direction: column;
@@ -62,40 +56,6 @@
       width: auto;
     }
 
-    .logo-text {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #2563eb;
-    }
-
-    .logo-text a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .search {
-      flex-grow: 1;
-      display: flex;
-      justify-content: center;
-    }
-
-    #searchBar {
-      width: 100%;
-      max-width: 300px;
-      padding: 10px;
-      border-radius: 20px;
-      border: 1px solid #ccc;
-    }
-
-    .dropdown {
-      margin-left: 20px;
-    }
-
-    select {
-      padding: 8px;
-      border-radius: 5px;
-    }
-
     .page-title {
       text-align: center;
       padding: 40px 20px;
@@ -105,88 +65,197 @@
 
     .page-title h1 {
       font-size: 2.5rem;
+      margin-bottom: 15px;
     }
 
-    main {
-      flex: 1;
-      padding: 20px;
+    .page-title p {
+      font-size: 1.1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .opportunities-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .opportunity-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
       display: flex;
       flex-direction: column;
-      align-items: center;
     }
 
-    .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .card {
-      background-color: #ffffff;
-      width: 300px;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-    }
-
-    .card:hover {
+    .opportunity-card:hover {
       transform: translateY(-5px);
     }
 
-    .card-header {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #2563eb;
+    .card-content {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-content h3 {
+      font-size: 1.25rem;
       margin-bottom: 10px;
-    }
-
-    .card-body ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .card-body li {
-      margin-bottom: 8px;
-    }
-
-    .card-body a {
       color: #2563eb;
-      text-decoration: none;
     }
 
-    .card-body a:hover {
-      text-decoration: underline;
+    .card-content p {
+      margin-bottom: 15px;
+      color: #4b5563;
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+
+    .tag {
+      background: #e5e7eb;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      color: #4b5563;
+    }
+
+    .card-link {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #2563eb;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      text-align: center;
+      transition: background-color 0.3s ease;
+      font-weight: 500;
+    }
+
+    .card-link:hover {
+      background-color: #1e40af;
     }
 
     footer {
       background-color: #1f2937;
       color: #ffffff;
-      padding: 40px;
+      padding: 60px 100px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      justify-content: center;
+      align-items: start;
+      margin-top: auto;
+    }
+
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
+    }
+
+    .footer-col h4 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      text-decoration: none;
+      color: #d1d5db;
+      transition: color 0.3s ease;
+    }
+
+    .footer-col ul li a:hover {
+      color: #2563eb;
+    }
+
+    .footer-col .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .footer-col .social-icons a {
+      color: #d1d5db;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-col .social-icons a:hover {
+      color: #2563eb;
+    }
+
+    .footer-col .newsletter {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .footer-col .newsletter input,
+    .footer-col .newsletter button {
+      width: 70%;
+      max-width: 70%;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .footer-col .newsletter input {
+      border: 1px solid #d1d5db;
+      background-color: transparent;
+      color: #ffffff;
+    }
+
+    .footer-col .newsletter button {
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .footer-col .newsletter button:hover {
+      background-color: #1e40af;
     }
 
     @media (max-width: 768px) {
       header {
-        flex-direction: column;
-        align-items: flex-start;
         padding: 10px 20px;
       }
 
-      .search {
-        width: 100%;
-        margin-top: 10px;
+      .opportunities-grid {
+        padding: 20px;
+        grid-template-columns: 1fr;
       }
 
-      .dropdown {
-        margin-top: 10px;
-        width: 100%;
-      }
-
-      .card-container {
-        flex-direction: column;
-        align-items: center;
+      footer {
+        padding: 40px 20px;
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -198,118 +267,118 @@
       <a href="index.html">
         <img src="logo.PNG" alt="VoluntHero" />
       </a>
-      <div class="logo-text"></div>
-    </div>
-    <div class="search">
-      <input type="text" id="searchBar" placeholder="Search...">
-    </div>
-    <div class="dropdown">
-      <select onchange="filterByCity()">
-        <option value="">Pick A City</option>
-        <option value="Sacramento">Sacramento</option>
-        <option value="Modesto">Modesto</option>
-        <option value="Stockton">Stockton</option>
-        <option value="Tracy">Tracy</option>
-        <option value="Manteca">Manteca</option>
-        <option value="Lodi">Lodi</option>
-        <option value="Lathrop">Lathrop</option>
-        <option value="Ripon">Ripon</option>
-        <option value="Escalon">Escalon</option>
-      </select>
     </div>
   </header>
 
-  <section class="page-title">
-    <h1>Volunteer Opportunities Forum</h1>
-    <p>Connect with local organizations and find volunteer opportunities in your community</p>
-  </section>
-
   <main>
-    <div class="card-container">
-       <div class="card">
-            <div class="card-header">San Joaquin General Hospital</div>
-            <div class="card-body">
-              <ul>
-                <li><strong>Name: </strong>San Joaquin General Hospital</li>
-                <li><strong>Position: </strong>Hospital Volunteer</li>
-                <li><strong>Location: </strong>500 W. Hospital Road, French Camp, CA 95231</li>
-                <li><strong>Website:</strong> <a href="https://www.sanjoaquingeneral.org/become-a-volunteer">Click Here</a></li>
-              </ul>
-            </div>
-          </div>
+    <section class="page-title">
+      <h1>Pre-Medical Track Opportunities</h1>
+      <p>Find local and virtual programs, clinics, and volunteering options to support your journey into the medicine field</p>
+    </section>
 
-          <div class="card">
-            <div class="card-header">St. Joseph's Medical Center</div>
-            <div class="card-body">
-              <ul>
-                <li><strong>Name: </strong>St. Joseph's Medical Center</li>
-                <li><strong>Position: </strong>Volunteer Services</li>
-                <li><strong>Location: </strong>1800 N. California Street, Stockton, CA 95204</li>
-                <li><strong>Website:</strong> <a href="https://www.dignityhealth.org/central-california/locations/stjosephs-stockton/ways-to-give/howtovolunteer">Click Here</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">Sutter Tracy Community Hospital</div>
-            <div class="card-body">
-              <ul>
-                <li><strong>Name: </strong>Sutter Tracy Community Hospital</li>
-                <li><strong>Position: </strong>Junior Volunteer Program</li>
-                <li><strong>Location: </strong>1420 N. Tracy Blvd, Tracy, CA 95376</li>
-                <li><strong>Website:</strong> <a href="https://www.sutterhealth.org/volunteering/opportunities/volunteer-at-sutter-tracy-community-hospital-1096123229">Click Here</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">Kaiser Permanente Manteca Medical Center</div>
-            <div class="card-body">
-              <ul>
-                <li><strong>Name: </strong>Kaiser Permanente Manteca Medical Center</li>
-                <li><strong>Position: </strong>Volunteer Services</li>
-                <li><strong>Location: </strong>1779 W. Yosemite Ave, Manteca, CA 95337</li>
-                <li><strong>Website:</strong> <a href="https://healthy.kaiserpermanente.org/northern-california/facilities/manteca-medical-center-100356/departments/volunteer-services-dlp-106644">Click Here</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">Adventist Health Lodi Memorial</div>
-            <div class="card-body">
-              <ul>
-                <li><strong>Name: </strong>Adventist Health Lodi Memorial</li>
-                <li><strong>Position: </strong>Hospital Volunteer</li>
-                <li><strong>Location: </strong>975 S. Fairmont Ave, Lodi, CA 95240</li>
-                <li><strong>Website:</strong> <a href="https://www.adventisthealth.org/lodi-memorial/about-us/volunteer/">Click Here</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">Oak Valley Hospital District</div>
-            <div class="card-body">
-              <ul>
-                <li><strong>Name: </strong>Oak Valley Hospital District</li>
-                <li><strong>Position: </strong>Hospital Volunteer</li>
-                <li><strong>Location: </strong>350 South Oak Avenue, Oakdale, CA 95361</li>
-                <li><strong>Website:</strong> <a href="https://oakvalleyhospital.com/careers/volunteer/">Click Here</a></li>
-              </ul>
-            </div>
-          </div>
+    <section class="opportunities-grid">
+      
+      <div class="opportunity-card"><div class="card-content">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSe9kk2c4bjflz3VBSiSyvo2WFpYMuvtTgB6w&s">
+        <h3>San Joaquin General Hospital</h3><div class="card-tags">
+          <span class="tag">In-Person</span>
+          <span class="tag">Hospital Volunteer</span>
+        </div><p>500 W. Hospital Road, French Camp, CA 95231</p>
+        <a href="https://www.sanjoaquingeneral.org/become-a-volunteer" class="card-link">Click Here</a>
       </div>
-    </div>
+      </div>
+      <div class="opportunity-card">
+        <img     src="https://neuronext.org/wp-content/uploads/2024/07/st_josephs.jpg">
+        <div class="card-content">
+          <h3>St. Joseph's Medical Center</h3><div class="card-tags">
+            <span class="tag">In-Person</span>
+            <span class="tag">Volunteer Services</span>
+          </div>
+          <p>1800 N. California Street, Stockton, CA 95204</p>
+          <a href="https://www.dignityhealth.org/central-california/locations/stjosephs-stockton/ways-to-give/howtovolunteer" class="card-link">Click Here</a>
+        </div>
+      </div>
+      <div class="opportunity-card">
+        <img     
+          src="https://vitals.sutterhealth.org/files/2023/12/Untitled-design.jpg">
+        <div class="card-content">
+          <h3>Sutter Tracy Community Hospital</h3>
+          <div class="card-tags">
+            <span class="tag">In-Person</span>
+            <span class="tag">Junior Volunteer Program</span>
+          </div>
+          <p>1420 N. Tracy Blvd, Tracy, CA 95376</p>
+          <a href="https://www.sutterhealth.org/volunteering/opportunities/volunteer-at-sutter-tracy-community-hospital-1096123229" class="card-link">Click Here</a>
+        </div>
+      </div>
+      <div class="opportunity-card">
+        <img     
+          src="https://static.ehealthinsurance.com/res-pages/static/kaiser-permanente-health-insurance-7c9f71e0f275e09e1e9da2d01345e7cc.png">
+        <div class="card-content">
+          <h3>Kaiser Permanente Manteca Medical Center</h3>
+          <div class="card-tags">
+            <span class="tag">In-Person</span>
+            <span class="tag">Volunteer Services</span>
+          </div>
+          <p>1779 W. Yosemite Ave, Manteca, CA 95337</p>
+          <a href="https://healthy.kaiserpermanente.org/northern-california/facilities/manteca-medical-center-100356/departments/volunteer-services-dlp-106644" class="card-link">Click Here</a></div>
+      </div>
+      <div class="opportunity-card">
+        <img     
+          src="https://www.r1rcm.com/wp-content/uploads/2024/02/Adventist-Blog.jpeg">
+        <div class="card-content">
+          <h3>Adventist Health Lodi Memorial</h3>
+          <div class="card-tags">
+            <span class="tag">In-Person</span>
+            <span class="tag">Hospital Volunteer</span>
+          </div>
+          <p>975 S. Fairmont Ave, Lodi, CA 95240</p>
+          <a href="https://www.adventisthealth.org/lodi-memorial/about-us/volunteer/" class="card-link">Click Here</a>
+        </div>
+      </div>
+      <div class="opportunity-card">
+        <img     
+          src="https://d2c0db5b8fb27c1c9887-9b32efc83a6b298bb22e7a1df0837426.ssl.cf2.rackcdn.com/19860836-oak-valley-hospital-district-800x200.jpeg">
+        <div class="card-content">
+          <h3>Oak Valley Hospital District</h3>
+          <div class="card-tags">
+            <span class="tag">In-Person</span>
+            <span class="tag">Hospital Volunteer</span>
+          </div>
+          <p>350 South Oak Avenue, Oakdale, CA 95361</p>
+          <a href="https://oakvalleyhospital.com/careers/volunteer/" class="card-link">Click Here</a>
+        </div>
+      </div>
+      
+    </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 VoluntHero. All rights reserved.</p>
+    <div class="footer-col">
+      <h4>Creators</h4>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/itsmichaellin/">Michael Lin</a></li>
+        <li><a href="https://www.linkedin.com/in/sehaj-gill-b88770329/">Sehaj Gill</a></li>
+        <li><a href="https://www.linkedin.com/in/samarth-gill-33a9a82b3/">Samarth Gill</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Socials</h4>
+      <div class="social-icons">
+        <a href="mailto:voluntherocontact@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://linktr.ee/sehajg"><i class="fas fa-link"></i></a>
+        <a href="https://www.instagram.com/volunt.hero/"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Newsletter</h4>
+      <div class="newsletter">
+        <input type="email" placeholder="Enter your email" />
+        <button>Subscribe</button>
+      </div>
+    </div>
   </footer>
-
-  <script>
-    function filterByCity() {
-      // Implement filtering logic here
-    }
-  </script>
 </body>
 
 </html>
